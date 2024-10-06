@@ -1,0 +1,48 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../../helper/responsive_helper.dart';
+
+class JoinFamilyButton extends StatelessWidget {
+  final String text;
+  final Function() onTap;
+
+  const JoinFamilyButton({super.key, required this.text, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+        bottom: ResponsiveHelper.ofHeight(context, 0.05),
+        child: SizedBox(
+          width: ResponsiveHelper.ofWidth(context, 1),
+          child: Center(
+            child: InkWell(
+              onTap:onTap,
+              child: Container(
+                height: 50,
+                width: ResponsiveHelper.ofWidth(context, 0.6),
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/images/family_btn_bg.webp',
+                    ),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    text,
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white60),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ));
+    ;
+  }
+}
