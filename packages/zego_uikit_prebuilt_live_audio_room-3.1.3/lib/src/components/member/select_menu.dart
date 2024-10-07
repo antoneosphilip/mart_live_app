@@ -6,9 +6,10 @@ import 'package:live_app/data/model/response/add_blacklist_model.dart';
 import 'package:zego_uikit/src/services/defines/user.dart';
 
 class SelectMenuBottomSheet extends StatefulWidget {
-  final ZegoUIKitUser user;
+  final String userId;
 
-  const SelectMenuBottomSheet(this.user, {Key? key}) : super(key: key);
+  const SelectMenuBottomSheet({Key? key, required this.userId}) : super(key: key);
+
 
   @override
   _SelectMenuBottomSheetState createState() => _SelectMenuBottomSheetState();
@@ -79,7 +80,7 @@ class _SelectMenuBottomSheetState extends State<SelectMenuBottomSheet> {
                         addUserBlackListModel: AddUserBlackListModel(
                             duration: selectedNumber,
                             timeUnit: selectedOption,
-                            userId: widget.user.id));
+                            userId: widget.userId));
                   }
                 },
                 child: const Text('Confirm Selection'),

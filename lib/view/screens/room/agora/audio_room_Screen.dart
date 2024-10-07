@@ -1,4 +1,3 @@
-import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,33 +12,12 @@ import 'custom_owner_iten.dart';
 import 'leave_from_room_dialog.dart';
 import 'name_widget.dart';
 
-class AudioRoomAgoraScreen extends StatefulWidget {
+class AudioRoomAgoraScreen extends StatelessWidget {
   final RoomModel room;
   final UserModel userModel;
 
   const AudioRoomAgoraScreen(
       {super.key, required this.room, required this.userModel});
-
-  @override
-  State<AudioRoomAgoraScreen> createState() => _AudioRoomAgoraScreenState();
-}
-
-class _AudioRoomAgoraScreenState extends State<AudioRoomAgoraScreen>
-    with SingleTickerProviderStateMixin {
-  final roomController=Get.find<RoomController>();
-  @override
-  void initState() {
-    roomController.userAnimation(
-      vsync: this, // تمرير الـ vsync
-    );
-    if (widget.room.isOwner!) {
-      Get.find<RoomController>()
-          .agoraEngine
-          ?.setClientRole(role: ClientRoleType.clientRoleBroadcaster);
-    }
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +27,15 @@ class _AudioRoomAgoraScreenState extends State<AudioRoomAgoraScreen>
           onWillPop: () async {
             showCustomDialog(context, 'room', () async {
               await roomController.leaveChannel(
-                widget.userModel,
-                widget.room,
+                userModel,
+                room,
               );
             });
             return true;
           },
           child: Scaffold(
+            resizeToAvoidBottomInset: true,
+
             body: Stack(
               children: [
                 Container(
@@ -72,20 +52,60 @@ class _AudioRoomAgoraScreenState extends State<AudioRoomAgoraScreen>
                       ? Column(
                           children: [
                             SizedBox(height: 20.h),
-                            NameWidget(roomModel: widget.room,),
-                            SizedBox(height: 40.h),
-                            SizedBox(
-                              width: 50.w,
-                              child: widget.room.owner != null
-                                  ? const CustomOwnerItem()
-                                  : SeatItem(
-                                      chair: roomController.inRoom!.chairs![0],
-                                      numberOfItem: 0,
-                                      userModel: widget.userModel,
-                                      roomModel: widget.room,
-                                    ),
+                            NameWidget(
+                              roomModel: room, userModel: userModel,
                             ),
-                            SizedBox(width: 4.w,),
+                            SizedBox(height: 40.h),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 50.w,
+                                  child: room.owner != null
+                                      ? const CustomOwnerItem()
+                                      : SeatItem(
+                                          chair: roomController.inRoom!.chairs![0],
+                                          numberOfItem: 0,
+                                          userModel: userModel,
+                                          roomModel: room,
+                                        ),
+                                ),
+                                SizedBox(width: 10.w,),
+                                SizedBox(
+                                  width: 50.w,
+                                  child:Column(
+                                    children: [
+                                      SeatItem(
+                                        chair: roomController.inRoom!.chairs![1],
+                                        numberOfItem: 2,
+                                        userModel: userModel,
+                                        roomModel: room,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 4.0),
+                                        // Reduce top padding
+                                        child: Text(
+                                        "",
+                                          // Show only the first name
+                                          style: robotoWhite.copyWith(
+                                              fontSize: 10),
+                                          textAlign: TextAlign.center,
+                                          overflow: TextOverflow.ellipsis,
+                                          // Avoid overflow
+                                          maxLines: 1,
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 4.w,
+                            ),
                             SizedBox(height: 15.h),
                             Padding(
                               padding:
@@ -105,16 +125,14 @@ class _AudioRoomAgoraScreenState extends State<AudioRoomAgoraScreen>
                                   ),
                                   padding: const EdgeInsets.all(0),
                                   itemCount:
-                                      roomController.inRoom!.chairs!.length - 1,
+                                      roomController.inRoom!.chairs!.length - 2,
                                   itemBuilder: (context, index) {
-                                    final seatNumber =
-                                        roomController.seatNumber[index + 1];
                                     return SeatItem(
-                                      numberOfItem: index + 2,
-                                      userModel: widget.userModel,
-                                      roomModel: widget.room,
+                                      numberOfItem: index + 3,
+                                      userModel: userModel,
+                                      roomModel: room,
                                       chair: roomController
-                                          .inRoom!.chairs![index + 1],
+                                          .inRoom!.chairs![index + 2],
                                     );
                                   },
                                 ),
@@ -122,8 +140,9 @@ class _AudioRoomAgoraScreenState extends State<AudioRoomAgoraScreen>
                             ),
                             const Spacer(),
                             RoomRowIcons(
-                              userModel: widget.userModel,
-                              room: widget.room,
+                              roomController: roomController,
+                              userModel: userModel,
+                              room: room,
                             ),
                             SizedBox(height: 10.h),
                           ],

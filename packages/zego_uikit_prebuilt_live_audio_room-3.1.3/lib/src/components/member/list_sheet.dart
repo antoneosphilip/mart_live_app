@@ -515,7 +515,7 @@ void showBottomSheetWithSelectMenu(BuildContext context, ZegoUIKitUser user) {
     context: context,
     backgroundColor: Colors.transparent,
     builder: (context) {
-      return SelectMenuBottomSheet(user);
+      return SelectMenuBottomSheet(userId: user.id,);
     },
   );
 }

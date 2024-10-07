@@ -142,6 +142,7 @@ class RoomController extends GetxController implements GetxService {
   }
 
   Future<void> getRoomVisitors() async {
+    isLoading=true;
     Response response = await roomRepo.getRoomVisitors(inRoom?.id);
     if (response.statusCode == 200) {
       List<UserModel> visitorList = [];
@@ -149,10 +150,15 @@ class RoomController extends GetxController implements GetxService {
         var user = UserModel.fromJson(item);
         visitorList.add(user);
       }
+      print("item${visitorList.length}");
+
       visitors = visitorList;
     } else {
       ApiChecker.checkApi(response);
+      isLoading=false;
     }
+    isLoading=false;
+
     update();
   }
 
@@ -446,10 +452,12 @@ class RoomController extends GetxController implements GetxService {
       }
     }
   }
-   AnimationController? controller;
+  double borderThickness = 0.0;
+  List<AudioVolumeInfo> speakers = [];
+  AnimationController? controller;
    Animation<double>? animation;
   Future<void> doJoinAgora(RoomModel room, UserModel? userModel) async {
-    setupListeners();
+    // setupListeners();
     // Agora-specific variables
 
     // Request microphone and camera permissions
@@ -459,6 +467,7 @@ class RoomController extends GetxController implements GetxService {
       // Initialize Chat Client first
       agoraEngine = createAgoraRtcEngine();
       await agoraEngine?.initialize(const RtcEngineContext(appId: AppConstants.appAgoraId));
+      agoraEngine?.enableAudio();
 
       // Register Agora event handlers for join and user events
       agoraEngine?.registerEventHandler(RtcEngineEventHandler(
@@ -476,11 +485,26 @@ class RoomController extends GetxController implements GetxService {
             agoraEngine?.leaveChannel();
             flutterShowToast(message: "there are error please try later", toastCase:ToastCase.error);
             print('Agora Error: $errorCodeType');
+            return;
+          },
+        onAudioVolumeIndication: (RtcConnection connection, List<AudioVolumeInfo> newSpeakers, int totalVolume, int elapsed) {
+          speakers=newSpeakers;
+          if (speakers.isNotEmpty) {
+            print("Sssssssssssssssssssssssssssssssssssssssss");
+            borderThickness = (1.0 + (speakers[0].volume! * 0.01)).clamp(1.0, 4.0);
+            update(); //
           }
+        },
       ));
 
       // Set client role
       await agoraEngine?.setClientRole(role: ClientRoleType.clientRoleAudience);
+      await agoraEngine?.enableAudioVolumeIndication(
+        interval: 30,
+        smooth: 800,
+        reportVad: true,
+      );
+
 
       // Join Agora channel with token
       await agoraEngine?.joinChannel(
@@ -510,6 +534,11 @@ class RoomController extends GetxController implements GetxService {
       if (response.statusCode == 200) {
         print("Success");
         inRoom = RoomModel.fromJson(response.body['data']);
+        if(room.isOwner!){
+          sitChair(seatNum: 1, roomId:room.id!, isMute: false);
+        }
+        getRoomVisitors();
+        update();
       } else {
         ApiChecker.checkApi(response);
         Get.back();
@@ -528,139 +557,6 @@ class RoomController extends GetxController implements GetxService {
 
 
 
-  Future<void> setupChatClient({required appKey}) async {
-    ChatOptions options = ChatOptions(
-      appKey: '611216811#1406681',
-      autoLogin: false,
-    );
-    chatClient = ChatClient.getInstance;
-    await chatClient?.init(options);
-    await ChatClient.getInstance.startCallback();
-    setupListeners();
-    print("success");
-  }
-
-  void setupListeners() {
-    chatClient?.addConnectionEventHandler(
-      "CONNECTION_HANDLER",
-      ConnectionEventHandler(
-        onUserAuthenticationFailed: () {
-          print("failed auth");
-        },
-        onConnected:(){
-          print("connectd");
-        },
-        onDisconnected:(){
-          print("disConnectd");
-        },
-        onTokenWillExpire: () {
-          print("Token Will expired");
-        },
-        onTokenDidExpire: () {
-          print("Token expired");
-        },
-      ),
-    );
-
-    chatClient?.chatManager.addEventHandler(
-      "MESSAGE_HANDLER",
-      ChatEventHandler(
-        onMessagesReceived: (List<ChatMessage> messages) {
-          print("Messages received: ${messages.length}");
-          onMessagesReceived(messages);
-        },
-      ),
-    );
-
-
-    print("Listeners are set up");
-  }
-
-
-  void onMessagesReceived(List<ChatMessage> messages) {
-    for (var msg in messages) {
-      if (msg.body.type == MessageType.TXT) {
-        ChatTextMessageBody body = msg.body as ChatTextMessageBody;
-        // displayMessage(body.content, false);
-        print("Message from ${msg.from}");
-      } else {
-        String msgType = msg.body.type.name;
-        print("Received $msgType message, from ${msg.from}");
-      }
-    }
-  }
-
-  Future<void> joinChat(String userId, String token) async {
-    try {
-      print("sssssssssssssssssss");
-      await chatClient?.loginWithAgoraToken('4',
-      ''
-      );
-      print("Logged in successfully as $userId");
-
-    } on ChatError catch (e) {
-      if (e.code != 200) {
-        print("Login failed, code: ${e.code}, desc: ${e.description}");
-      }
-    }
-  }
-
-  Future<void> leaveChat(String userId, String token) async {
-    try {
-      await chatClient?.logout();
-      print("Logged in successfully as $userId");
-    } on ChatError catch (e) {
-      if (e.code != 200) {
-        print("Login failed, code: ${e.code}, desc: ${e.description}");
-      }
-    }
-  }
-
-  void sendMessageAgora({required roomId}) async {
-    // Ensure the user is authenticated before sending messages
-    var currentUserId = ChatClient.getInstance.currentUserId;
-    if (currentUserId == null) {
-      print("User is not authenticated.");
-      return;
-    }
-
-    print("Room ID: $roomId");
-
-    // Create the message
-    var msg = ChatMessage.createTxtSendMessage(
-      targetId: '2', // Ensure this is a valid recipient ID
-      content: "sss",
-    );
-
-    // Define a unique handler ID for this message
-    String handlerId = DateTime.now().millisecondsSinceEpoch.toString();
-
-    // Register the message event handler
-    ChatClient.getInstance.chatManager.addMessageEvent(
-      handlerId,
-      ChatMessageEvent(
-        onSuccess: (msgId, msg) {
-          print("Message sent successfully, ID: ${msgId}R${msg}");
-          ChatClient.getInstance.chatManager.removeMessageEvent(handlerId);
-        },
-        onProgress: (msgId, progress) {
-          print("Message sending in progress, ID: $msgId, Progress: $progress%");
-        },
-        onError: (msgId, msg, error) {
-          print("Message failed to send, ID: $msgId, Code: ${error.code}, Desc: ${error.description}");
-          ChatClient.getInstance.chatManager.removeMessageEvent(handlerId);
-        },
-      ),
-    );
-
-    // Send the message
-    try {
-      await ChatClient.getInstance.chatManager.sendMessage(msg);
-    } catch (e) {
-      print("Error while sending message: $e");
-      ChatClient.getInstance.chatManager.removeMessageEvent(handlerId);
-    }
-  }
 
   Map<int, bool> seatNumber = {};
 
@@ -740,7 +636,12 @@ class RoomController extends GetxController implements GetxService {
   void manageMicrophone(int userId, bool hasMic) {
     print("hassss${hasMic}");
     agoraEngine?.muteLocalAudioStream(hasMic); // Mute the microphone
-    update();
+    if(hasMic==true)
+    {
+      borderThickness=0;
+    }
+
+      update();
   }
 }
 // Future<void> initializeRtm({required UserModel userModel}) async {

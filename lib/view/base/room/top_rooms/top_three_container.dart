@@ -47,11 +47,11 @@ class TopThreeContainer extends StatelessWidget {
                                           room: homeController.topRooms![1],
                                           no: '2',
                                         )
-                                      : SizedBox(),
+                                      : const SizedBox(),
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Expanded(

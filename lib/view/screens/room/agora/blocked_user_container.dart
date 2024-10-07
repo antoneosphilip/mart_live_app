@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../zego_uikit_prebuilt_live_audio_room.dart';
-import '../member/buttom_item.dart';
+import 'package:live_app/data/model/response/room_model.dart';
 
-import '../member/list_sheet.dart';
 import 'package:live_app/view/screens/family/widget/custom_netwok_image.dart';
 
+import '../../../widgets/show_bottom_sheet_with_select_menu.dart';
+import 'button_item.dart';
+
 class BlockUserContainer extends StatelessWidget {
-  final ZegoUIKitUser? user;
-  const BlockUserContainer({Key? key,  this.user}) : super(key: key);
+  final User user;
+
+  const BlockUserContainer({super.key, required this.user});
+
 
 
   @override
@@ -40,12 +43,12 @@ class BlockUserContainer extends StatelessWidget {
                 ),
                 Center(
                     child: CustomNetworkImage(
-                      image: user?.inRoomAttributes.value['img']??"",
+                      image: user.image,
                       width: 70.w,
                       height: 70.h,
                     )),
                 Text(
-                  user?.name??" ",
+                  user.name??" ",
                   style: TextStyle(
                       fontSize: 25.sp,
                       fontWeight: FontWeight.w500,
@@ -56,7 +59,7 @@ class BlockUserContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      user!.id??"",
+                      user.uuid.toString(),
                       style: TextStyle(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w500,
@@ -114,7 +117,7 @@ class BlockUserContainer extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: (){
-                        showBottomSheetWithSelectMenu(context,user!);
+                        showBottomSheetWithSelectMenu(context,user.id.toString());
                       },
                       child: const ButtonItem(
                         text: 'BlackList',

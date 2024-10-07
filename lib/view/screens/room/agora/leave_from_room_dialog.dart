@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:live_app/util/colors.dart';
 import 'package:live_app/util/styles.dart';
 
 import '../../../../controller/room_controller.dart';
@@ -17,12 +18,12 @@ void showCustomDialog(BuildContext context,String text,Function() onPressed) {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20), // Rounded corners
+            borderRadius: BorderRadius.circular(20),
           ),
           contentPadding: EdgeInsets.zero,
-          backgroundColor: const Color(0xFF1C1C1C), // Set background color to dark grey
+          backgroundColor: ColorManger.deepGrey2,
           content: SizedBox(
-            height: 130, // Set a smaller height (adjust as necessary)
+            height: 130,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
