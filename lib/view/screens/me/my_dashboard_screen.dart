@@ -24,6 +24,7 @@ import '../../../helper/route_helper.dart';
 import '../../base/confirmation_dialog.dart';
 import '../create_family/create_family.dart';
 import '../users/friends_screen.dart';
+import '../users/user_details_screen.dart';
 
 class MyDashboardScreen extends StatefulWidget {
   const MyDashboardScreen({Key? key}) : super(key: key);
@@ -69,7 +70,8 @@ class _MyDashboardScreenState extends State<MyDashboardScreen> {
                         padding: const EdgeInsets.all(1),
                         child: InkWell(
                           onTap: () {
-                            Get.toNamed(RouteHelper.getProfileRoute());
+                            Get.find<UserController>().getUserDetails( Get.find<UserController>().userModel!.id!);
+                            Get.to(UserDetailsScreen());
                           },
                           child: ClipOval(
                             child: CustomImage(

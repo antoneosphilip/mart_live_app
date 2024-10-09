@@ -23,7 +23,6 @@ void showCustomDialog(BuildContext context,String text,Function() onPressed) {
           contentPadding: EdgeInsets.zero,
           backgroundColor: ColorManger.deepGrey2,
           content: SizedBox(
-            height: 130,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

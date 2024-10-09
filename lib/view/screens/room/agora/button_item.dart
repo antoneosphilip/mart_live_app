@@ -17,7 +17,7 @@ class ButtonItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         image:  DecorationImage(image: AssetImage(image,),fit: BoxFit.cover),
       ),
-      child: Expanded(child: Center(child: Text(text,style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 13.sp),))),
+      child: Center(child: Text(text,style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 10.sp),)),
     );
   }
 }

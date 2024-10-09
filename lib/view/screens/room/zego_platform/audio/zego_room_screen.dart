@@ -131,7 +131,7 @@ class _ZegoRoomScreenState extends State<ZegoRoomScreen> {
               ..userInRoomAttributes = {
                 'lvl': '1',
                 'mb':
-                    widget.room.IsUserRoomMicBlocked == true ? 'true' : 'false',
+                    widget.room.isUserRoomMicBlocked == true ? 'true' : 'false',
                 'img': "${widget.user.image}",
               }
               ..seat.layout.rowConfigs = ZegoHelper.rowConfigs()

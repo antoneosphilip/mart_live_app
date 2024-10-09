@@ -8,6 +8,7 @@ import 'package:live_app/view/screens/room/agora/seat_item.dart';
 
 import '../../../../data/model/response/room_model.dart';
 import '../../../../util/styles.dart';
+import 'custom_chair.dart';
 import 'custom_owner_iten.dart';
 import 'leave_from_room_dialog.dart';
 import 'name_widget.dart';
@@ -35,7 +36,6 @@ class AudioRoomAgoraScreen extends StatelessWidget {
           },
           child: Scaffold(
             resizeToAvoidBottomInset: true,
-
             body: Stack(
               children: [
                 Container(
@@ -53,7 +53,8 @@ class AudioRoomAgoraScreen extends StatelessWidget {
                           children: [
                             SizedBox(height: 20.h),
                             NameWidget(
-                              roomModel: room, userModel: userModel,
+                              roomModel: room,
+                              userModel: userModel,
                             ),
                             SizedBox(height: 40.h),
                             Row(
@@ -61,43 +62,60 @@ class AudioRoomAgoraScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                  width: 50.w,
-                                  child: room.owner != null
-                                      ? const CustomOwnerItem()
-                                      : SeatItem(
-                                          chair: roomController.inRoom!.chairs![0],
-                                          numberOfItem: 0,
-                                          userModel: userModel,
-                                          roomModel: room,
-                                        ),
+                                    width: 50.w,
+                                    child: ((room.isOwner!) ||
+                                            (roomController
+                                                    .inRoom!.chairs?[0].user !=
+                                                null))
+                                        ?  CustomOwnerItem(roomModel:roomController
+                                        .inRoom!,chair:roomController
+                                        .inRoom!.chairs?[0] ,)
+                                        : Container(
+                                            width: 50.w, // Reduced width
+                                            decoration: BoxDecoration(
+                                              color: Colors.white70
+                                                  .withOpacity(.7),
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: CustomChair(
+                                              chair: roomController
+                                                  .inRoom!.chairs![0],
+                                              numberOfItem: 1,
+                                            ))),
+                                SizedBox(
+                                  width: 10.w,
                                 ),
-                                SizedBox(width: 10.w,),
                                 SizedBox(
                                   width: 50.w,
-                                  child:Column(
+                                  child: Column(
                                     children: [
                                       SeatItem(
-                                        chair: roomController.inRoom!.chairs![1],
+                                        chair:
+                                            roomController.inRoom!.chairs![1],
                                         numberOfItem: 2,
                                         userModel: userModel,
                                         roomModel: room,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 4.0),
-                                        // Reduce top padding
-                                        child: Text(
-                                        "",
-                                          // Show only the first name
-                                          style: robotoWhite.copyWith(
-                                              fontSize: 10),
-                                          textAlign: TextAlign.center,
-                                          overflow: TextOverflow.ellipsis,
-                                          // Avoid overflow
-                                          maxLines: 1,
-                                        ),
-                                      ),
-
+                                      ((room.isOwner!) ||
+                                              (roomController.inRoom!.chairs?[0]
+                                                      .user !=
+                                                  null))
+                                          ? Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 4.0),
+                                              // Reduce top padding
+                                              child: Text(
+                                                "",
+                                                // Show only the first name
+                                                style: robotoWhite.copyWith(
+                                                    fontSize: 10),
+                                                textAlign: TextAlign.center,
+                                                overflow: TextOverflow.ellipsis,
+                                                // Avoid overflow
+                                                maxLines: 1,
+                                              ),
+                                            )
+                                          : const SizedBox(),
                                     ],
                                   ),
                                 ),
@@ -109,19 +127,18 @@ class AudioRoomAgoraScreen extends StatelessWidget {
                             SizedBox(height: 15.h),
                             Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
+                                  const EdgeInsets.symmetric(horizontal: 2),
                               child: SizedBox(
                                 width: double.infinity,
                                 child: GridView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                      SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount:
                                         4, // Number of items per row
-                                    mainAxisSpacing:
-                                        10, // Reduced vertical spacing
-                                    crossAxisSpacing: 15,
+                                    mainAxisSpacing: 10.h,
+                                    crossAxisSpacing: 15.w,
                                   ),
                                   padding: const EdgeInsets.all(0),
                                   itemCount:

@@ -175,7 +175,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                     BottomNavItem(
                                       title: _pageIndex == 1 ? '' : 'mine'.tr,
-                                      selectedIcon: Images.mineSelected,
+                                      selectedIcon: Images.hmineSelected,
                                       unSelectedIcon: Images.mineUnselected,
                                       isSelected: _pageIndex == 1,
                                       onTap: () => _setPage(1),

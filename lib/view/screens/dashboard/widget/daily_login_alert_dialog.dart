@@ -32,30 +32,27 @@ class DailyLoginAlertDialog extends StatelessWidget {
             const DailyLoginContainer(),
             Padding(
               padding: EdgeInsets.only(
-                  top: 160.h,
-                  left: 16.w,
-                  right: 16.w),
+                top: 160.h,
+                left: 16.w,
+                right: 16.w,
+              ),
               child: GridView.builder(
                 physics: const BouncingScrollPhysics(),
-                gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    // Number of columns
-                    crossAxisSpacing: 5.0.w,
-                    mainAxisSpacing: 10.0.h,
-                    childAspectRatio: 10,
-                    mainAxisExtent: 75),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  crossAxisSpacing: 5.0.w,
+                  mainAxisSpacing: 10.0.h,
+                  childAspectRatio: 1,
+                  mainAxisExtent: MediaQuery.of(context).size.width * 0.20,
+                ),
                 itemCount: 8,
-                // Number of items in the grid
-                itemBuilder: (BuildContext context,
-                    int index) {
+                itemBuilder: (BuildContext context, int index) {
                   return SizedBox(
-                      height: 100.w,
-                      width: 100.h,
-                      child:
-                      ContainerGiftsDailyLogin(
-                        isDay: index == 0,
-                      ));
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: ContainerGiftsDailyLogin(
+                      isDay: index == 0,
+                    ),
+                  );
                 },
               ),
             ),

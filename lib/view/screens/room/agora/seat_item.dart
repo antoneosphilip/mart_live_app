@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:live_app/data/model/response/room_model.dart';
 import 'package:live_app/view/screens/room/agora/custom_name_user_room.dart';
 import 'package:live_app/view/screens/room/agora/cutom_image_person_room.dart';
+import 'package:live_app/view/screens/room/agora/show_profile_container.dart';
 import 'package:live_app/view/screens/room/agora/take_seat_Dailog.dart';
 
 import '../../../../controller/room_controller.dart';
@@ -32,6 +33,16 @@ class SeatItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (!roomModel.isOwner!) {
+          if((chair!.user!=null)){
+            showDialog(
+              context: context,
+              builder: (context) {
+                return showProfileUserContainer(
+                  user: chair!.user!,
+                );
+              },
+            );
+          }
           if (chair!.user == null && chair!.isLocked != 1) {
             if (Get.find<RoomController>().seatNumber.isEmpty) {
               showCustomBottomSheet(context, numberOfItem, roomModel.id!);
@@ -42,7 +53,7 @@ class SeatItem extends StatelessWidget {
                   await Get.find<RoomController>()
                       .leaveChair(seatNum: numberOfItem);
                 });
-              } else if (numberOfItem != 0 && seatNumber == null) {
+              } else if (numberOfItem != 2 && seatNumber == null) {
                 Get.find<RoomController>().sitChair(
                     seatNum: numberOfItem,
                     roomId: roomModel.id!,
@@ -86,7 +97,7 @@ class SeatItem extends StatelessWidget {
                     : chair!.user != null &&
                             (seatNumber == null || seatNumber == false)
                         ? CustomImagePersonRoom(
-                            image: chair!.user!.image!,
+                            image: chair!.user!.image,
                             chair: chair,
                           )
                         : const SizedBox(),

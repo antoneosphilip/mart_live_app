@@ -302,7 +302,7 @@ class Images {
   static const homeUnselected = 'assets/image/main/home_unselected.png';
   static const gameSelected = 'assets/image/main/game_selected.png';
   static const gameUnselected = 'assets/image/main/game_unselected.png';
-  static const mineSelected = 'assets/image/main/mine_selected.png';
+  static const hmineSelected = 'assets/image/main/mine_selected.png';
   static const mineUnselected = 'assets/image/main/mine_unselected.png';
   static const msgSelected = 'assets/image/main/msg_selected.png';
   static const msgUnselected = 'assets/image/main/msg_unselected.png';

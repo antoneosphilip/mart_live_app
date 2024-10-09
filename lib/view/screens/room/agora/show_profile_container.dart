@@ -12,10 +12,10 @@ import '../../../widgets/show_bottom_sheet_with_select_menu.dart';
 import '../../users/user_details_screen.dart';
 import 'button_item.dart';
 
-class BlockUserContainer extends StatelessWidget {
+class showProfileUserContainer extends StatelessWidget {
   final User user;
 
-  const BlockUserContainer({super.key, required this.user});
+  const showProfileUserContainer({super.key, required this.user});
 
 
 
@@ -25,7 +25,7 @@ class BlockUserContainer extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       content: Container(
         width: double.infinity,
-        height: 400.h,
+        height: MediaQuery.of(context).size.height * 0.8,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.r),
           color: Colors.white,
@@ -115,28 +115,28 @@ class BlockUserContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InkWell(
-                      onTap: (){
-                        showBottomSheetWithSelectMenu(context,user.id.toString());
+                      onTap: () async {
+                        Get.find<UserController>().getUserDetails(user.id);
+                        Get.to(const UserDetailsScreen());
                       },
                       child: const ButtonItem(
-                        text: 'BlackList',
+                        text: 'Show Profile',
                         image: 'assets/images/send_gift.webp',
                       ),
                     ),
+                    SizedBox(width: 10.w,),
                     SizedBox(
-                      width: 10.w,
+                      width: 80.w,
+                      height: 40.h,
+                      child: TextButton(
+                          onPressed: (){}, child: Text('')),
                     ),
-                    const ButtonItem(
-                      text: 'Mute',
-                      image: 'assets/images/send_gift.webp',
-                    ),
+                    SizedBox(width: 10.w,),
                     SizedBox(
-                      width: 10.w,
-                    ),
-                    const ButtonItem(
-                      text: 'BlackList',
-                      image: 'assets/images/send_gift.webp',
-                    ),
+                        width: 80.w,
+                        height: 40.h,
+                        child: TextButton(onPressed: (){}, child: Text(''))),
+
                   ],
                 ),
               ],

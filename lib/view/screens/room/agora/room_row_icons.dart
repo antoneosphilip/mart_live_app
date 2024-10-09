@@ -61,7 +61,7 @@ class _RoomRowIconsState extends State<RoomRowIcons> {
                   .manageMicrophone(widget.userModel.uuid!, !isMic);
             },
             child: Get.find<RoomController>().seatNumber.isNotEmpty ||
-                    widget.room.isOwner!
+                    widget.room.isOwner!&&widget.roomController.isOwnerTakeSeat
                 ? RoomIcon(iconData: isMic ? Icons.mic : Icons.mic_off)
                 : const SizedBox()),
         SizedBox(

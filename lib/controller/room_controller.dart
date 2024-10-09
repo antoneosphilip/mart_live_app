@@ -142,7 +142,7 @@ class RoomController extends GetxController implements GetxService {
   }
 
   Future<void> getRoomVisitors() async {
-    isLoading=true;
+    isLoading = true;
     Response response = await roomRepo.getRoomVisitors(inRoom?.id);
     if (response.statusCode == 200) {
       List<UserModel> visitorList = [];
@@ -155,9 +155,9 @@ class RoomController extends GetxController implements GetxService {
       visitors = visitorList;
     } else {
       ApiChecker.checkApi(response);
-      isLoading=false;
+      isLoading = false;
     }
-    isLoading=false;
+    isLoading = false;
 
     update();
   }
@@ -181,7 +181,7 @@ class RoomController extends GetxController implements GetxService {
     if (room.isOwner == true) {
       doJoin(room);
     } else {
-      if (room.IsUserRoomBlocked == true) {
+      if (room.isUserRoomBlocked == true) {
         Get.defaultDialog(
             title: "${room.name}",
             content: const Row(
@@ -404,11 +404,11 @@ class RoomController extends GetxController implements GetxService {
 
   List<ChatMessage> messages = [];
 
-  Future<void> joinRoomAgora(RoomModel room,UserModel userModel) async {
+  Future<void> joinRoomAgora(RoomModel room, UserModel userModel) async {
     if (room.isOwner == true) {
-      doJoinAgora(room,userModel);
+      doJoinAgora(room, userModel);
     } else {
-      if (room.IsUserRoomBlocked == true) {
+      if (room.isUserRoomBlocked == true) {
         Get.defaultDialog(
             title: "${room.name}",
             content: const Row(
@@ -438,7 +438,7 @@ class RoomController extends GetxController implements GetxService {
               onYesPressed: () {
                 Get.back();
                 if (passwordController.value.text == room.password) {
-                  doJoinAgora(room,userModel);
+                  doJoinAgora(room, userModel);
                 } else {
                   showCustomSnackBar('wrong_password'.tr,
                       isError: true, getXSnackBar: true);
@@ -447,70 +447,83 @@ class RoomController extends GetxController implements GetxService {
             ),
           );
         } else {
-          doJoinAgora(room,userModel);
+          doJoinAgora(room, userModel);
         }
       }
     }
   }
+
   double borderThickness = 0.0;
   List<AudioVolumeInfo> speakers = [];
   AnimationController? controller;
-   Animation<double>? animation;
+  Animation<double>? animation;
+  bool isOwnerTakeSeat = false;
+
   Future<void> doJoinAgora(RoomModel room, UserModel? userModel) async {
+
     // setupListeners();
     // Agora-specific variables
 
     // Request microphone and camera permissions
     await [Permission.microphone, Permission.camera].request();
 
+    // Initialize Chat Client first
     try {
-      // Initialize Chat Client first
       agoraEngine = createAgoraRtcEngine();
-      await agoraEngine?.initialize(const RtcEngineContext(appId: AppConstants.appAgoraId));
-      agoraEngine?.enableAudio();
+      await agoraEngine
+          ?.initialize(const RtcEngineContext(appId: AppConstants.appAgoraId));
 
       // Register Agora event handlers for join and user events
       agoraEngine?.registerEventHandler(RtcEngineEventHandler(
-          onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
-            print('Successfully joined Agora channel: ${connection.channelId}');
-          },
-          onUserJoined: (RtcConnection connection, int remoteUid, int elapsed) {
-            print('Remote user $remoteUid joined the channel');
-          },
-          onUserOffline: (RtcConnection connection, int remoteUid, UserOfflineReasonType reason) {
-            print('Remote user $remoteUid left the channel');
-          },
-          onError: (errorCodeType,error) {
-            Get.back();
-            agoraEngine?.leaveChannel();
-            flutterShowToast(message: "there are error please try later", toastCase:ToastCase.error);
-            print('Agora Error: $errorCodeType');
-            return;
-          },
-        onAudioVolumeIndication: (RtcConnection connection, List<AudioVolumeInfo> newSpeakers, int totalVolume, int elapsed) {
-          speakers=newSpeakers;
+        onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
+          print(elapsed);
+          print('Successfully joined Agora channel: ${connection.channelId}');
+        },
+        onUserJoined: (RtcConnection connection, int remoteUid, int elapsed) {
+          print('Remote user $remoteUid joined the channel');
+        },
+        onUserOffline: (RtcConnection connection, int remoteUid,
+            UserOfflineReasonType reason) {
+          print('Remote user $remoteUid left the channel');
+        },
+        onError: (errorCodeType, error) {
+          flutterShowToast(
+              message: "there are error please try later",
+              toastCase: ToastCase.error);
+          Get.back();
+          agoraEngine?.leaveChannel();
+
+          print('Agora Error: $errorCodeType');
+          return;
+        },
+        onAudioVolumeIndication: (RtcConnection connection,
+            List<AudioVolumeInfo> newSpeakers, int totalVolume, int elapsed) {
+          // room=inRoom!;
+          speakers = newSpeakers;
           if (speakers.isNotEmpty) {
             print("Sssssssssssssssssssssssssssssssssssssssss");
-            borderThickness = (1.0 + (speakers[0].volume! * 0.01)).clamp(1.0, 4.0);
+            borderThickness =
+                (1.0 + (speakers[0].volume! * 0.01)).clamp(1.0, 4.0);
             update(); //
           }
-        },
-      ));
 
+          update();
+        }
+      ));
       // Set client role
       await agoraEngine?.setClientRole(role: ClientRoleType.clientRoleAudience);
+
       await agoraEngine?.enableAudioVolumeIndication(
         interval: 30,
         smooth: 800,
         reportVad: true,
       );
 
-
       // Join Agora channel with token
       await agoraEngine?.joinChannel(
-        token:  AppConstants.agoraToken,
-        channelId:  AppConstants.channelName,
-        uid: 0,
+        token: AppConstants.agoraToken,
+        channelId: AppConstants.channelName,
+        uid: userModel!.uuid!,
         options: const ChannelMediaOptions(
           publishMicrophoneTrack: true,
         ),
@@ -519,57 +532,51 @@ class RoomController extends GetxController implements GetxService {
         room: room,
         userModel: userModel!,
       ));
-      // await setupChatClient(appKey: AppConstants);
-      //
-      // // Join Chat
-      // await joinChat(userModel.id.toString(),  AppConstants.agoraToken);
 
-      // Navigate to audio room screen
-
-
-      // Join the room using roomRepo
-      Response response = await roomRepo.joinRoom(room.id, passwordController.value.text);
+      Response response =
+          await roomRepo.joinRoom(room.id, passwordController.value.text);
       resetPassword();
 
       if (response.statusCode == 200) {
         print("Success");
         inRoom = RoomModel.fromJson(response.body['data']);
-        if(room.isOwner!){
-          sitChair(seatNum: 1, roomId:room.id!, isMute: false);
-        }
         getRoomVisitors();
+        print("Ssssssssssssssitttttttttt${isOwnerTakeSeat}");
+        print("sssssssssssssssssssssiiiiiiiiiiiiiiiii");
+        print(inRoom?.chairs?[0].user?.id);
+        if (room.isOwner!) {
+          sitChair(seatNum: 1, roomId: room.id!, isMute: false);
+        }
         update();
       } else {
+        print("ssssssssssss");
         ApiChecker.checkApi(response);
         Get.back();
       }
-
     } catch (e) {
       print('Error joining room: $e');
       // Exit the room and leave the Agora channel
       Get.back();
       agoraEngine?.leaveChannel();
-      flutterShowToast(message: e.toString(), toastCase:ToastCase.error);
+      flutterShowToast(message: e.toString(), toastCase: ToastCase.error);
     }
 
     update();
   }
 
-
-
-
   Map<int, bool> seatNumber = {};
 
-  Future<void> sitChair({required int seatNum, required int roomId,required bool isMute}) async {
+  Future<void> sitChair(
+      {required int seatNum, required int roomId, required bool isMute}) async {
     seatNumber.clear();
     seatNumber[seatNum] = true;
     update();
     isLoading = true;
     Response response =
         await roomRepo.sitChair(seatNum: seatNum, roomId: roomId);
-    if (response.statusCode == 200&&!isMute) {
-      agoraEngine?.setClientRole(
-          role: ClientRoleType.clientRoleBroadcaster);
+    if (response.statusCode == 200 && !isMute) {
+      isOwnerTakeSeat = true;
+      agoraEngine?.setClientRole(role: ClientRoleType.clientRoleBroadcaster);
     } else {
       seatNumber[seatNum] = false;
       seatNumber.clear();
@@ -578,24 +585,22 @@ class RoomController extends GetxController implements GetxService {
     isLoading = false;
     update();
   }
-  Future<void> leaveChair({required int seatNum})async {
+
+  Future<void> leaveChair({required int seatNum}) async {
     print("ssss");
     Get.back();
     seatNumber.clear();
     update();
-    agoraEngine?.setClientRole(
-        role: ClientRoleType.clientRoleAudience);
-    Response response =
-    await roomRepo.leaveChair();
-    if(response.statusCode!=200)
-    {
+    agoraEngine?.setClientRole(role: ClientRoleType.clientRoleAudience);
+    Response response = await roomRepo.leaveChair();
+    if (response.statusCode != 200) {
       ApiChecker.checkApi(response, isList: false);
-      seatNumber[seatNum]=true;
-      agoraEngine?.setClientRole(
-          role: ClientRoleType.clientRoleBroadcaster);
+      seatNumber[seatNum] = true;
+      agoraEngine?.setClientRole(role: ClientRoleType.clientRoleBroadcaster);
     }
     update();
   }
+  bool isMute=false;
 
   Future<void> leaveChannel(userModel, RoomModel roomModel) async {
     await agoraEngine?.leaveChannel();
@@ -604,6 +609,10 @@ class RoomController extends GetxController implements GetxService {
     seatNumber.clear();
     Response response = await roomRepo.leaveRoom();
     if (response.statusCode == 200) {
+      isOwnerTakeSeat=false;
+      isMute=false;
+      update();
+
     } else {
       Get.to(AudioRoomAgoraScreen(
         room: roomModel,
@@ -633,15 +642,22 @@ class RoomController extends GetxController implements GetxService {
     });
   }
 
+  bool hasMute = false;
+
   void manageMicrophone(int userId, bool hasMic) {
     print("hassss${hasMic}");
-    agoraEngine?.muteLocalAudioStream(hasMic); // Mute the microphone
-    if(hasMic==true)
-    {
-      borderThickness=0;
+    agoraEngine?.muteLocalAudioStream(hasMic);
+    if (hasMic == true) {
+      borderThickness = 0;
+      isMute=true;
     }
-
-      update();
+    else{
+      isMute=false;
+    }
+    update();
+    hasMute = hasMic;
+    print("hhhassssssssssssss${hasMute}");
+    update();
   }
 }
 // Future<void> initializeRtm({required UserModel userModel}) async {
