@@ -443,7 +443,7 @@ class _MyDashboardScreenState extends State<MyDashboardScreen> {
                                           //   },
                                           // ),
                                           ImageButton(
-                                            text: 'create_family'.tr,
+                                            text: 'my family'.tr,
                                             image: 'assets/icon/my_family.webp',
                                             onTap: () {
                                               Get.to(() => CreateFamily(
@@ -452,8 +452,7 @@ class _MyDashboardScreenState extends State<MyDashboardScreen> {
                                                         "",
                                                     hasFamily: userController
                                                             .userModel!
-                                                            .hasFamily ??
-                                                        false,
+                                                            .hasFamily!,
                                                     gold: userController
                                                         .userModel!
                                                         .wallet!

@@ -7,7 +7,8 @@ import '../base/custom_app_bar.dart';
 
 class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
   final String name;
-  const AppBarCustom({super.key, required this.name});
+  final List<Widget>? actions;
+  const AppBarCustom({super.key, required this.name, this.actions});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,7 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
       font: Dimensions.fontSizeExtraLarge,
       fontWeight: FontWeight.w500,
       iconSize: 20,
+      actions:actions,
     );
   }
   @override

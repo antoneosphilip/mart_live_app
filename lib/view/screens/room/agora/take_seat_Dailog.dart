@@ -31,8 +31,8 @@ void showCustomBottomSheet(BuildContext context,int numberOfItem,int roomId) {
                      Get.find<RoomController>().seatNumber.isEmpty) {
                    Get.find<RoomController>()
                        .sitChair(seatNum: numberOfItem, roomId: roomId, isMute: false);
+                   Get.back();
                  }
-                 Get.back();
                },
                child: Text(
                 'Take a seat',

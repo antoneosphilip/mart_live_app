@@ -289,6 +289,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  country_list_picker:
+    dependency: "direct main"
+    description:
+      name: country_list_picker
+      sha256: d466a0540ab7d92e8f2a71397797464900cdd3e5f9b7811b0089c2465cdcdb6d
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.0"
   cross_file:
     dependency: transitive
     description:

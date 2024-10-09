@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:live_app/controller/user_controller.dart';
 import 'package:live_app/data/model/response/conversation_model.dart';
 import 'package:live_app/data/model/response/user_model.dart';
-import 'package:live_app/view/base/custom_app_bar.dart';
 import 'package:live_app/view/widgets/loading_idicator.dart';
 import 'package:live_app/view/widgets/section_container.dart';
 
@@ -18,7 +18,9 @@ import '../../widgets/top_3.dart';
 
 class UserDetailsScreen extends StatefulWidget {
   final UserModel? user;
+
   const UserDetailsScreen({super.key, this.user});
+
   @override
   State<UserDetailsScreen> createState() => _UserDetailsScreenState();
 }
@@ -29,9 +31,6 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: false,
-        appBar: CustomAppBar(
-          title: '',
-        ),
         body: GetBuilder<UserController>(
           builder: (userController) {
             return userController.isLoading
@@ -52,19 +51,48 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                         width: MediaQuery.of(context).size.width,
                         color: Colors.black38,
                       ),
+
                       Container(
                         height: MediaQuery.of(context).size.height,
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
+                              SizedBox(height: 25.h,),
+                              Padding(
+                                padding:  EdgeInsets.symmetric(vertical: 0.0,horizontal: 20.w),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      child: const Icon(
+                                          Icons.arrow_back_ios, color: Colors.white
+                                      ),
+                                      onTap: () {
+                                        print("ssss");
+                                      },
+                                    ),
+                                    InkWell(
+                                      child: const Icon(
+                                          Icons.edit, color: Colors.white
+                                      ),
+                                      onTap: () {
+                                        Get.toNamed(RouteHelper.editProfile);
+                                      },
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+
                               Container(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.25,
+                                    MediaQuery.of(context).size.height * 0.20,
                                 width: MediaQuery.of(context).size.width,
                                 child: Container(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
+
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,

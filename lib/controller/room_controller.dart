@@ -269,7 +269,13 @@ class RoomController extends GetxController implements GetxService {
 
   Future<void> takeMic(String? roomId, String? micNum) async {
     Response response = await roomRepo.takeMic(roomId, micNum);
-    getRoomOnMicUsers();
+    if(response.statusCode==200){
+      getRoomOnMicUsers();
+    }
+    else
+    {
+      ApiChecker.checkApi(response,isList: false);
+    }
   }
 
   Future<void> leaveMic(String? roomId, String? micNum) async {
@@ -486,6 +492,9 @@ class RoomController extends GetxController implements GetxService {
             UserOfflineReasonType reason) {
           print('Remote user $remoteUid left the channel');
         },
+          onTokenPrivilegeWillExpire: (connection, token) {
+
+          },
         onError: (errorCodeType, error) {
           flutterShowToast(
               message: "there are error please try later",
@@ -523,7 +532,7 @@ class RoomController extends GetxController implements GetxService {
       await agoraEngine?.joinChannel(
         token: AppConstants.agoraToken,
         channelId: AppConstants.channelName,
-        uid: userModel!.uuid!,
+        uid: userModel!.id!,
         options: const ChannelMediaOptions(
           publishMicrophoneTrack: true,
         ),
@@ -574,6 +583,7 @@ class RoomController extends GetxController implements GetxService {
     isLoading = true;
     Response response =
         await roomRepo.sitChair(seatNum: seatNum, roomId: roomId);
+
     if (response.statusCode == 200 && !isMute) {
       isOwnerTakeSeat = true;
       agoraEngine?.setClientRole(role: ClientRoleType.clientRoleBroadcaster);

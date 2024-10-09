@@ -24,7 +24,7 @@ class UserDetailsModel {
   Wallet? wallet;
   SenderLevel? senderLevel;
   SenderLevel? consigneeLevel;
-  String? family;
+  FamilyModel? family;
   List<ReceivedGifts>? receivedGifts;
   List<SentGifts>? sentGifts;
   String? wealth;
@@ -93,7 +93,7 @@ class UserDetailsModel {
     consigneeLevel = json['consignee_level'] != null
         ? new SenderLevel.fromJson(json['consignee_level'])
         : null;
-    family = json['family'];
+    family = json['family']!=null?new FamilyModel.fromJson(json['family']):null;
     if (json['receivedGifts'] != null) {
       receivedGifts = <ReceivedGifts>[];
       json['receivedGifts'].forEach((v) {

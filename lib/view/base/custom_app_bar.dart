@@ -12,6 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? type;
   final String? leadingIcon;
   final Color? backgroundColor;
+  final List<Widget>? actions;
   final Color? color;
   final double? font;
   final FontWeight? fontWeight;
@@ -26,7 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.onVegFilterTap,
       this.type,
       this.backgroundColor,
-      this.color,  this.font, this.fontWeight,  this.iconSize})
+      this.color,  this.font, this.fontWeight,  this.iconSize,  this.actions})
       : super(key: key);
 
   @override
@@ -48,6 +49,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   : Navigator.pop(context),
             )
           : const SizedBox(),
+      actions: actions,
       backgroundColor: backgroundColor ?? Theme.of(context).cardColor,
       elevation: 0,
     );

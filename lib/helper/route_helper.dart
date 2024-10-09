@@ -31,10 +31,13 @@ import 'package:live_app/view/screens/room/audio_room_screen.dart';
 import 'package:live_app/view/screens/search/search_screen.dart';
 import 'package:live_app/view/screens/setting/setting_screen.dart';
 import 'package:live_app/view/screens/splash/splash_screen.dart';
+import 'package:live_app/view/screens/users/edit_profile_Screen.dart';
+import 'package:live_app/view/screens/users/nick_name_screen.dart';
 
 import '../view/base/room/setting_room_screen.dart';
 import '../view/screens/room/agora/audio_room_Screen.dart';
 import '../view/screens/store/store_home_screen.dart';
+import '../view/screens/users/signuture_screen.dart';
 
 class RouteHelper {
   static const String initial = '/';
@@ -121,7 +124,9 @@ class RouteHelper {
   static const String allFamilies = '/all_families';
   static const String roomSetting = '/room_setting';
   static const String userFamily = '/user_familt';
-
+  static const String editProfile = '/edit_profile';
+  static const String nickName = '/nick_name';
+  static const String signature = '/signature';
 
   static String getInitialRoute({bool fromSplash = false}) =>
       '$initial?from-splash=$fromSplash';
@@ -243,6 +248,24 @@ class RouteHelper {
       name: roomSetting,
       page: () => getRoute(
          SettingRoomScreen() ,
+      ),
+    ),
+    GetPage(
+      name: editProfile,
+      page: () => getRoute(
+        const EditProfileScreen() ,
+      ),
+    ),
+    GetPage(
+      name: nickName,
+      page: () => getRoute(
+         NickNameScreen() ,
+      ),
+    ),
+    GetPage(
+      name: signature,
+      page: () => getRoute(
+        SignatureScreen() ,
       ),
     ),
     GetPage(

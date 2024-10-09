@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:live_app/controller/room_controller.dart';
 import 'package:live_app/data/model/response/user_model.dart';
 import 'package:live_app/util/styles.dart';
+import 'package:live_app/view/screens/room/agora/gift_box_agora.dart';
 import 'package:live_app/view/screens/room/agora/room_members_container.dart';
 import 'package:live_app/view/screens/room/agora/send_message.dart';
 
@@ -96,7 +97,7 @@ class _RoomRowIconsState extends State<RoomRowIcons> {
         SizedBox(
           width: 10.w,
         ),
-        const GiftBox(),
+        const GiftBoxAgora(),
       ],
     );
   }

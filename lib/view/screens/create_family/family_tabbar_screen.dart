@@ -137,7 +137,7 @@ class FamilyTabBarScreen extends StatelessWidget {
               SizedBox(
                 height: 30.h,
               ),
-              hasFamily
+              !hasFamily
                   ? ElevatedButtonWidget(
                       text: 'Create a Family',
                       backGroundColor: ColorManger.deepGold,
