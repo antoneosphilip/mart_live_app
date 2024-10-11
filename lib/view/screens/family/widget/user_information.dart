@@ -18,19 +18,7 @@ class UserInformation extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Stack(
-          alignment: Alignment.bottomRight,
-          children: [
-            Padding(
-              padding:  EdgeInsets.only(right: 15.w,left: 15.w,top: 13.h),
-              child: CustomNetworkImage(image: owner?.image,width: 70.w,height: 70.h,),
-            ),
-            Padding(
-              padding:  EdgeInsets.only(right: 19.w,bottom: 13.h),
-              child: const PersonPhoto(),
-            ),
-          ],
-        ),
+
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,

@@ -13,6 +13,7 @@ class CustomTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final FocusNode? nextFocus;
   final TextInputType inputType;
+  final Color? filledColor;
   final TextInputAction inputAction;
   final bool isPassword;
   final Function? onChanged;
@@ -34,6 +35,7 @@ class CustomTextField extends StatefulWidget {
   final String? countryDialCode;
   final Function(CountryCode countryCode)? onCountryChanged;
   final String? Function(String?)? validator; // Add validator parameter
+  final Color ?textColor;
 
   const CustomTextField({
     super.key,
@@ -63,7 +65,7 @@ class CustomTextField extends StatefulWidget {
     this.isPhone = false,
     this.countryDialCode,
     this.onCountryChanged,
-    this.validator, // Add validator parameter
+    this.validator,  this.filledColor,  this.textColor, // Add validator parameter
   });
 
   @override
@@ -119,7 +121,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                   style:
                   widget.showBorder ? BorderStyle.solid : BorderStyle.none,
                   width: 0.3,
-                  color: Theme.of(context).primaryColor),
+                  color: Colors.grey),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
@@ -127,7 +129,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                   style:
                   widget.showBorder ? BorderStyle.solid : BorderStyle.none,
                   width: 1,
-                  color: Theme.of(context).primaryColor),
+                  color: Colors.grey),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
@@ -135,17 +137,17 @@ class CustomTextFieldState extends State<CustomTextField> {
                   style:
                   widget.showBorder ? BorderStyle.solid : BorderStyle.none,
                   width: 0.3,
-                  color: Theme.of(context).primaryColor),
+                  color: Colors.grey),
             ),
             isDense: true,
             hintText:
             widget.hintText.isEmpty || !ResponsiveHelper.isDesktop(context)
                 ? widget.titleText
                 : widget.hintText,
-            fillColor: Theme.of(context).cardColor,
+            fillColor:widget.filledColor??Theme.of(context).cardColor,
             hintStyle: robotoRegular.copyWith(
                 fontSize: Dimensions.fontSizeLarge,
-                color: Theme.of(context).hintColor),
+                color:widget.textColor??Theme.of(context).hintColor),
             filled: true,
             prefixIcon: widget.isPhone
                 ? SizedBox(

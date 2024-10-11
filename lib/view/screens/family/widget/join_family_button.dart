@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../helper/responsive_helper.dart';
@@ -7,8 +8,8 @@ import '../../../../helper/responsive_helper.dart';
 class JoinFamilyButton extends StatelessWidget {
   final String text;
   final Function() onTap;
-
-  const JoinFamilyButton({super.key, required this.text, required this.onTap});
+  final double? width;
+  const JoinFamilyButton({super.key, required this.text, required this.onTap,  this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class JoinFamilyButton extends StatelessWidget {
               onTap:onTap,
               child: Container(
                 height: 50,
-                width: ResponsiveHelper.ofWidth(context, 0.6),
+                width: width?.w??ResponsiveHelper.ofWidth(context, 0.6),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
@@ -43,6 +44,6 @@ class JoinFamilyButton extends StatelessWidget {
             ),
           ),
         ));
-    ;
+
   }
 }

@@ -423,7 +423,9 @@ class _MyDashboardScreenState extends State<MyDashboardScreen> {
                                           ImageButton(
                                             text: 'invite_friends'.tr,
                                             image: 'assets/icon/invite.webp',
-                                            onTap: () {},
+                                            onTap: () {
+                                              Get.toNamed(RouteHelper.inviteFriends);
+                                            },
                                           ),
                                           ImageButton(
                                             text: 'level'.tr,
@@ -523,7 +525,9 @@ class _MyDashboardScreenState extends State<MyDashboardScreen> {
                                           ImageButton(
                                             text: 'network_test'.tr,
                                             image: 'assets/icon/net_test.webp',
-                                            onTap: () {},
+                                            onTap: () {
+                                              Get.toNamed(RouteHelper.networkTest);
+                                            },
                                           ),
                                           ImageButton(
                                             text: 'our_policy'.tr,

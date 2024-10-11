@@ -151,7 +151,7 @@ class FamilyTabBarScreen extends StatelessWidget {
                       },
                     )
                   : ElevatedButtonWidget(
-                text: 'My Family',
+                text: 'show Family',
                 backGroundColor: ColorManger.deepGold,
                 textColor: ColorManger.whiteColor,
                 borderColor: ColorManger.deepGold,

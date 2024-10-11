@@ -34,7 +34,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
         body: GetBuilder<UserController>(
           builder: (userController) {
             return userController.isLoading
-                ? LoadingIndicator()
+                ? const LoadingIndicator()
                 : Stack(
                     children: [
                       Container(

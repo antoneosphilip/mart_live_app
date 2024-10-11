@@ -22,6 +22,7 @@ import 'package:live_app/view/screens/home/home_screen.dart';
 import 'package:live_app/view/screens/me/my_dashboard_screen.dart';
 
 import '../chat/conversation_screen.dart';
+import '../chat/widget/chat_screen_widget.dart';
 
 class DashboardScreen extends StatefulWidget {
   final int pageIndex;
@@ -194,7 +195,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                                       unSelectedIcon: Images.msgUnselected,
                                       isSelected: _pageIndex == 3,
                                       onTap: () =>
-                                          Get.to(() => ConversationScreen()),
+                                          Get.to(() => ChatScreenWidget()),
                                     ),
                                     // BottomNavItem(
                                     //   title: _pageIndex == 4 ? '' : 'room'.tr,

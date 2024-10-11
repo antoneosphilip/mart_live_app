@@ -22,7 +22,9 @@ import 'package:live_app/view/screens/delete_massege_history/delete_message_hist
 import 'package:live_app/view/screens/family/user_family_screen.dart';
 import 'package:live_app/view/screens/general_setting/genral_setting.dart';
 import 'package:live_app/view/screens/html/html_viewer_screen.dart';
+import 'package:live_app/view/screens/invite_friends/invite_friends.dart';
 import 'package:live_app/view/screens/language/language_screen.dart';
+import 'package:live_app/view/screens/network_test/network_test.dart';
 import 'package:live_app/view/screens/notification/notification_screen.dart';
 import 'package:live_app/view/screens/privacy_policy/privacy_policy.dart';
 import 'package:live_app/view/screens/profile/profile_screen.dart';
@@ -127,6 +129,8 @@ class RouteHelper {
   static const String editProfile = '/edit_profile';
   static const String nickName = '/nick_name';
   static const String signature = '/signature';
+  static const String inviteFriends = '/invite_friends';
+  static const String networkTest = '/network_test';
 
   static String getInitialRoute({bool fromSplash = false}) =>
       '$initial?from-splash=$fromSplash';
@@ -234,7 +238,13 @@ class RouteHelper {
     GetPage(
       name: allFamilies,
       page: () => getRoute(
-          AllFamiliesScreen(),
+          const AllFamiliesScreen(),
+      ),
+    ),
+    GetPage(
+      name: inviteFriends,
+      page: () => getRoute(
+        const InviteFriendsScreen(),
       ),
     ),
 
@@ -284,6 +294,12 @@ class RouteHelper {
       name: changePhoneNumberScreen,
       page: () => getRoute(
         BindPhoneNumber(),
+      ),
+    ),
+    GetPage(
+      name: networkTest,
+      page: () => getRoute(
+        const NetworkTest(),
       ),
     ),
     GetPage(
