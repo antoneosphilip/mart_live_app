@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:core';
 import 'dart:typed_data';
+import 'package:http/http.dart' as http;
 
 import 'package:agora_chat_sdk/agora_chat_sdk.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
@@ -464,9 +466,26 @@ class RoomController extends GetxController implements GetxService {
   AnimationController? controller;
   Animation<double>? animation;
   bool isOwnerTakeSeat = false;
+  String token='';
 
+  Future<void> getToken() async {
+    final response = await http.get(
+      Uri.parse('${AppConstants.baseUrl}/rtc/${AppConstants.channelName}/publisher/uid/${0}'
+        // To add expiry time uncomment the below given line with the time in seconds
+        // + '?expiry=45'
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      token = response.body;
+      token = jsonDecode(token)['rtcToken'];
+      update();
+    } else {
+      print('Failed to fetch the token');
+    }
+  }
   Future<void> doJoinAgora(RoomModel room, UserModel? userModel) async {
-
+    await getToken();
     // setupListeners();
     // Agora-specific variables
 
@@ -510,7 +529,6 @@ class RoomController extends GetxController implements GetxService {
           // room=inRoom!;
           speakers = newSpeakers;
           if (speakers.isNotEmpty) {
-            print("Sssssssssssssssssssssssssssssssssssssssss");
             borderThickness =
                 (1.0 + (speakers[0].volume! * 0.01)).clamp(1.0, 4.0);
             update(); //

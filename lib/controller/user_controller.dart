@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:live_app/controller/auth_controller.dart';
@@ -13,7 +14,10 @@ import 'package:live_app/data/repository/user_repo.dart';
 import 'package:live_app/helper/network_info.dart';
 import 'package:live_app/helper/route_helper.dart';
 import 'package:live_app/view/base/custom_snackbar.dart';
+import 'package:live_app/view/widgets/flutter_Show_toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../data/model/response/update_profile_model.dart';
 
 class UserController extends GetxController implements GetxService {
   final UserRepo userRepo;
@@ -32,6 +36,7 @@ class UserController extends GetxController implements GetxService {
   XFile? get pickedFile => _pickedFile;
   Uint8List? get rawFile => _rawFile;
   bool get isLoading => _isLoading;
+  var nameController=TextEditingController();
 
   Future<Map<String, dynamic>> follow(int user_id) async {
     Map<String, dynamic> data = {};
@@ -115,6 +120,7 @@ class UserController extends GetxController implements GetxService {
       userDetailsModel = UserDetailsModel.fromJson(response.body['data']);
       print('nammmmmmmmmmme ${userDetailsModel?.name}');
     } else {
+      print("errrrrrrrrrrrr");
       ApiChecker.checkApi(response);
     }
     _isLoading = false;
@@ -126,25 +132,30 @@ class UserController extends GetxController implements GetxService {
     _userInfoModel = null;
   }
 
-  Future<ResponseModel> updateUserInfo(
-      UserInfoModel updateUserModel, String token) async {
+  Future<void> updateUserInfo(
+      UpdateProfileModel updateProfileModel) async {
+    userDetailsModel=null;
     _isLoading = true;
     update();
-    ResponseModel responseModel;
     Response response =
-        await userRepo.updateProfile(updateUserModel, _pickedFile, token);
+        await userRepo.updateProfile(updateProfileModel,_pickedFile);
     _isLoading = false;
     if (response.statusCode == 200) {
-      _userInfoModel = updateUserModel;
-      responseModel = ResponseModel(true, response.bodyString);
+      print("succcccccccesss");
+      // _userInfoModel = updateProfileModel;
       _pickedFile = null;
       _rawFile = null;
       getUserInfo();
+      getUserDetails(userModel!.id!);
+      nameController.clear();
+      flutterShowToast(message:'updated Successfully', toastCase: ToastCase.success);
     } else {
-      responseModel = ResponseModel(false, response.statusText);
+      print("erooooooooooooor");
+
+      // responseModel = ResponseModel(false, response.statusText);
+      ApiChecker.checkApi(response);
     }
     update();
-    return responseModel;
   }
 
   Future<ResponseModel> changePassword(UserInfoModel updatedUserModel) async {
@@ -198,6 +209,8 @@ class UserController extends GetxController implements GetxService {
       ApiChecker.checkApi(response);
     }
   }
+
+
 
   void clearUserInfo() {
     _userInfoModel = null;

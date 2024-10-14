@@ -11,7 +11,6 @@ class RankingContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
       height: 50,
       decoration: BoxDecoration(
           color: color??Colors.deepPurpleAccent,

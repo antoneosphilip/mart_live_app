@@ -21,6 +21,7 @@ dependencies:
   country_list_picker: ^0.0.0
   flutter_local_notifications: ^17.0.0
   agora_rtc_engine: ^6.3.2
+
   agora_chat_sdk: ^1.2.0
   path_provider: ^2.0.8
   url_strategy: ^0.2.0

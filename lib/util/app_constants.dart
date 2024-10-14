@@ -84,7 +84,7 @@ class AppConstants {
   static const String privacyPolicyUri = '/privacy-policy';
   static const String termsAndConditionUri = '/terms-and-conditions';
   static const String notificationUri = '/api/v1/customer/notifications';
-  static const String updateProfileUri = '/api/v1/customer/update-profile';
+  static const String   updateProfileUri = '/api/v2/user/update';
 
   static const String interestUri = '/api/v1/customer/update-interest';
 
@@ -250,7 +250,7 @@ class AppConstants {
 
 ////// agora
   static const String appAgoraId = 'b7f620807cab40948f165547fc754260'; // Replace with your Agora App ID
-  static const String agoraToken = '007eJxTYPguwp3x7+UiRoNtBxM3HJQufz3niTtHbb+SyNX701dNnHVCgSHJPM3MyMDCwDw5McnEwNLEIs3QzNTUxDwt2dzUxMjMQKCRLb0hkJFBlXszKyMDBIL4fAy5iUUl8ckZiSXxOZllqQwMALnQIp4='; // Replace with token
+  static const String agoraToken = '007eJxTYOA2erPTa+W6WDXTLJvOJ0L3N+6yUTRg1zv6Om6nzZ5CQQcFhiTzNDMjAwsD8+TEJBMDSxOLNEMzU1MT87Rkc1MTIzODVVe50xsCGRnuJZxhYIRCEJ+PITexqCQ+OSOxJD4nsyyVgQEA+WwhqQ=='; // Replace with token
   static const String channelName = 'mart_chat_live'; // Channel name
 
   static const String topic = 'all_zone_customer';

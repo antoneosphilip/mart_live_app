@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:live_app/controller/user_controller.dart';
 
 class ProfileImagePerson extends StatelessWidget {
   const ProfileImagePerson({super.key});
@@ -31,8 +33,13 @@ class ProfileImagePerson extends StatelessWidget {
               color: Colors.grey[100],
               borderRadius: BorderRadius.circular(16.r),
             ),
-            child:  Center(
-                child: Icon(Icons.add,color: Colors.grey[400],size: 40.sp,)
+            child:  InkWell(
+              onTap: () {
+                Get.find<UserController>().pickImage();
+              },
+              child: Center(
+                  child: Icon(Icons.add,color: Colors.grey[400],size: 40.sp,)
+              ),
             ),
           ),
         ],

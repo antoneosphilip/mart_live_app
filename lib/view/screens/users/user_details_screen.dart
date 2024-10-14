@@ -76,7 +76,9 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                                           Icons.edit, color: Colors.white
                                       ),
                                       onTap: () {
-                                        Get.toNamed(RouteHelper.editProfile);
+                                        Get.toNamed(RouteHelper.editProfile,arguments: {
+                                          'userModel':userController.userModel!
+                                        });
                                       },
                                     ),
 

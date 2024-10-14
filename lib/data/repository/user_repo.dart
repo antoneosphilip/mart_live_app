@@ -5,6 +5,8 @@ import 'package:live_app/data/api/api_client.dart';
 import 'package:live_app/data/model/response/userinfo_model.dart';
 import 'package:live_app/util/app_constants.dart';
 
+import '../model/response/update_profile_model.dart';
+
 class UserRepo {
   final ApiClient apiClient;
   UserRepo({required this.apiClient});
@@ -47,12 +49,15 @@ class UserRepo {
   }
 
   Future<Response> updateProfile(
-      UserInfoModel userInfoModel, XFile? data, String token) async {
+      UpdateProfileModel updateProfileModel, XFile? data) async {
     Map<String, String> body = {};
     body.addAll(<String, String>{
-      'f_name': userInfoModel.fName!,
-      'l_name': userInfoModel.lName!,
-      'email': userInfoModel.email!
+      'f_name': updateProfileModel.fName??'',
+      'l_name': updateProfileModel.lName??'',
+      // 'email': updateProfileModel.email,
+      'phone':updateProfileModel.phone??'',
+      'pio':updateProfileModel.pio??'',
+      'country_id':updateProfileModel.countryId??'',
     });
     return await apiClient.postMultipartData(
         AppConstants.updateProfileUri, body, [MultipartBody('image', data)]);

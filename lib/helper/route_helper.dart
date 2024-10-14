@@ -244,7 +244,7 @@ class RouteHelper {
     GetPage(
       name: inviteFriends,
       page: () => getRoute(
-        const InviteFriendsScreen(),
+         InviteFriendsScreen(),
       ),
     ),
 
@@ -263,13 +263,13 @@ class RouteHelper {
     GetPage(
       name: editProfile,
       page: () => getRoute(
-        const EditProfileScreen() ,
+         const EditProfileScreen() ,
       ),
     ),
     GetPage(
       name: nickName,
       page: () => getRoute(
-         NickNameScreen() ,
+         NickNameScreen(firstName: Get.arguments['name'],) ,
       ),
     ),
     GetPage(
@@ -363,8 +363,8 @@ class RouteHelper {
         name: deleteMessage,
         page: () => getRoute(const DeleteMessageHistory())),
     GetPage(name: profile, page: () => getRoute(const ProfileScreen())),
-    GetPage(
-        name: updateProfile, page: () => getRoute(const UpdateProfileScreen())),
+    // GetPage(
+    //     name: updateProfile, page: () => getRoute(const UpdateProfileScreen())),
     GetPage(
         name: notification,
         page: () => getRoute(NotificationScreen(
