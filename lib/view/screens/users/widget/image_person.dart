@@ -1,45 +1,72 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:live_app/controller/user_controller.dart';
+
+import '../../../../util/app_constants.dart';
+import '../../../../util/images.dart';
+import '../../../base/custom_image.dart';
+import 'choose_picture_Container.dart';
 
 class ProfileImagePerson extends StatelessWidget {
   const ProfileImagePerson({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userController = Get.find<UserController>();
     return Center(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(width: 16.w,),
+          SizedBox(
+            width: 16.w,
+          ),
           Container(
-            width: 100,
-            height: 100,
+            width: 100.w,
+            height: 100.h,
             decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: NetworkImage('https://www.bing.com/th?id=OIP.roQHQEuNf8SdJJ7wS3RxtgHaHa&w=150&h=150&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2'), // استخدم صورة موجودة لديك
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(16.r),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16.r),
+              child: CustomImage(
+                placeholder: Images.guestIconLight,
+                image: '${AppConstants.mediaUrl}/profile'
+                    '/${(userController.userInfoModel != null) ? userController.userInfoModel!.image : ''}',
+                height: 80.h,
+                width: 80.w,
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.circular(16.r),
             ),
           ),
           SizedBox(width: 20.w),
           Container(
-            width: 100,
-            height: 100,
+            width: 100.w,
+            height: 100.h,
             decoration: BoxDecoration(
               color: Colors.grey[100],
               borderRadius: BorderRadius.circular(16.r),
             ),
-            child:  InkWell(
+            child: InkWell(
               onTap: () {
-                Get.find<UserController>().pickImage();
+                showModalBottomSheet(
+                  context: context,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+                  ),
+                  builder: (BuildContext context) {
+                    return const ChoosePictureContainer();
+                  },
+                );
               },
               child: Center(
-                  child: Icon(Icons.add,color: Colors.grey[400],size: 40.sp,)
-              ),
+                  child: Icon(
+                Icons.add,
+                color: Colors.grey[400],
+                size: 40.sp,
+              )),
             ),
           ),
         ],

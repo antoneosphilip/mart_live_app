@@ -7,12 +7,15 @@ import '../../../../data/model/response/room_model.dart';
 class CustomChair extends StatelessWidget {
   final Chairs? chair;
   final int numberOfItem;
+  final  String? imageChair;
 
-  const CustomChair({super.key,required this.chair, required this.numberOfItem});
+  const CustomChair({super.key,required this.chair, required this.numberOfItem, this.imageChair,});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 70.w,
+      height: 50.h,
       decoration: chair!.teamNumber == 0
           ? const BoxDecoration()
           : BoxDecoration(
@@ -29,8 +32,8 @@ class CustomChair extends StatelessWidget {
             Stack(
               alignment: Alignment.center,
               children: [
-                const Image(
-                  image: AssetImage('assets/image/chair.webp'),
+                 Image(
+                  image: AssetImage(imageChair??'assets/image/chair.webp'),
                   fit: BoxFit
                       .cover, // Ensure the image covers the circle
                 ),

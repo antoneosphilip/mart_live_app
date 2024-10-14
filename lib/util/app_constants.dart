@@ -250,7 +250,7 @@ class AppConstants {
 
 ////// agora
   static const String appAgoraId = 'b7f620807cab40948f165547fc754260'; // Replace with your Agora App ID
-  static const String agoraToken = '007eJxTYOA2erPTa+W6WDXTLJvOJ0L3N+6yUTRg1zv6Om6nzZ5CQQcFhiTzNDMjAwsD8+TEJBMDSxOLNEMzU1MT87Rkc1MTIzODVVe50xsCGRnuJZxhYIRCEJ+PITexqCQ+OSOxJD4nsyyVgQEA+WwhqQ=='; // Replace with token
+  static const String agoraToken = '007eJxTYOj0vz/v18PdP89+kExJadJh2JeyXlf+yVkReaHIhZ8n2RQqMCSZp5kZGVgYmCcnJpkYWJpYpBmamZqamKclm5uaGJkZHLXkTW8IZGSwvBbByMgAgSA+H0NuYlFJfHJGYkl8TmZZKgMDANEtIwo='; // Replace with token
   static const String channelName = 'mart_chat_live'; // Channel name
 
   static const String topic = 'all_zone_customer';

@@ -31,6 +31,7 @@ class UserController extends GetxController implements GetxService {
   XFile? _pickedFile;
   Uint8List? _rawFile;
   bool _isLoading = false;
+  final TextEditingController pioController = TextEditingController();
 
   UserInfoModel? get userInfoModel => _userInfoModel;
   XFile? get pickedFile => _pickedFile;
@@ -131,9 +132,11 @@ class UserController extends GetxController implements GetxService {
   void setForceFullyUserEmpty() {
     _userInfoModel = null;
   }
-
   Future<void> updateUserInfo(
-      UpdateProfileModel updateProfileModel) async {
+      UpdateProfileModel updateProfileModel,{bool? isBack}) async {
+    if(isBack??true){
+      Get.back();
+    }
     userDetailsModel=null;
     _isLoading = true;
     update();
@@ -143,17 +146,16 @@ class UserController extends GetxController implements GetxService {
     if (response.statusCode == 200) {
       print("succcccccccesss");
       // _userInfoModel = updateProfileModel;
-      _pickedFile = null;
-      _rawFile = null;
+      // _pickedFile = null;
+      // _rawFile = null;
       getUserInfo();
       getUserDetails(userModel!.id!);
       nameController.clear();
       flutterShowToast(message:'updated Successfully', toastCase: ToastCase.success);
     } else {
       print("erooooooooooooor");
-
       // responseModel = ResponseModel(false, response.statusText);
-      ApiChecker.checkApi(response);
+      ApiChecker.checkApi(response,isList: false);
     }
     update();
   }
@@ -177,13 +179,26 @@ class UserController extends GetxController implements GetxService {
   void updateUserWithNewData(User? user) {
     _userInfoModel!.userInfo = user;
   }
+  XFile? image;
 
   void pickImage() async {
-    _pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    _pickedFile = await ImagePicker().pickImage(source:ImageSource.gallery);
     if (_pickedFile != null) {
       _pickedFile = await NetworkInfo.compressImage(_pickedFile!);
       _rawFile = await _pickedFile!.readAsBytes();
     }
+    image=pickedFile;
+    update();
+  }
+  void pickImageUpdateProfile(ImageSource?imageSource) async {
+    _pickedFile = await ImagePicker().pickImage(source:imageSource??ImageSource.gallery);
+    if (_pickedFile != null) {
+      Get.back();
+      updateUserInfo(UpdateProfileModel(),isBack: false);
+      _pickedFile = await NetworkInfo.compressImage(_pickedFile!);
+      _rawFile = await _pickedFile!.readAsBytes();
+    }
+    image=pickedFile;
     update();
   }
 

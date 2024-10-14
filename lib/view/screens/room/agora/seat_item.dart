@@ -18,13 +18,14 @@ class SeatItem extends StatelessWidget {
   final RoomModel roomModel;
   final UserModel userModel;
   final Chairs? chair;
+  final String? imageChair;
 
   const SeatItem({
     super.key,
     required this.numberOfItem,
     required this.roomModel,
     required this.userModel,
-    this.chair,
+    this.chair,  this.imageChair,
   });
 
   @override
@@ -87,6 +88,7 @@ class SeatItem extends StatelessWidget {
                 ? CustomChair(
                     chair: chair,
                     numberOfItem: numberOfItem,
+                   imageChair:imageChair
                   )
                 : chair!.user == null &&
                         (seatNumber != null && seatNumber != false)

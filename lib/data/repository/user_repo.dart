@@ -58,6 +58,7 @@ class UserRepo {
       'phone':updateProfileModel.phone??'',
       'pio':updateProfileModel.pio??'',
       'country_id':updateProfileModel.countryId??'',
+      'gender':updateProfileModel.gender??"",
     });
     return await apiClient.postMultipartData(
         AppConstants.updateProfileUri, body, [MultipartBody('image', data)]);

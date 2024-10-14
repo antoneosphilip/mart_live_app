@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:live_app/controller/user_controller.dart';
+import 'package:live_app/data/model/response/update_profile_model.dart';
 import 'package:live_app/util/dimensions.dart';
 import 'package:live_app/util/styles.dart';
 import 'package:live_app/view/widgets/app_bar.dart';
@@ -13,24 +16,31 @@ class SignatureScreen extends StatefulWidget {
 }
 
 class _SignatureScreenState extends State<SignatureScreen> {
-  final TextEditingController _controller = TextEditingController();
   int _charCount = 0;
 
   @override
   Widget build(BuildContext context) {
+    final userController= Get.find<UserController>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBarCustom(
         name: 'Signature',
         actions: [
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(right: 16.w),
-              child: Text(
-                "Confirm",
-                style: robotoWhite.copyWith(
-                  color:_charCount>0? Colors.pink:Colors.grey,
-                  fontSize: Dimensions.fontSizeLarge,
+          InkWell(
+            onTap: () {
+              userController.updateUserInfo(UpdateProfileModel(
+                pio: userController.pioController.text
+              ));
+            },
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.only(right: 16.w),
+                child: Text(
+                  "Confirm",
+                  style: robotoWhite.copyWith(
+                    color:_charCount>0? Colors.pink:Colors.grey,
+                    fontSize: Dimensions.fontSizeLarge,
+                  ),
                 ),
               ),
             ),
@@ -44,16 +54,15 @@ class _SignatureScreenState extends State<SignatureScreen> {
           children: [
             Expanded(
               child: TextFormField(
-                controller: _controller,
+                controller:userController.pioController ,
                 maxLines: null,
                 onChanged: (text) {
                   setState(() {
-                    _charCount = text.length; // تحديث عدد الأحرف عند الكتابة
+                    _charCount = text.length;
                   });
                 },
                 decoration: const InputDecoration(
                   border: InputBorder.none,
-
                   hintText: '',
                 ),
               ),

@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:live_app/view/screens/room/agora/show_profile_container.dart';
 
 import '../../../../controller/room_controller.dart';
 import '../../../../data/model/response/room_model.dart';
+import '../../../../util/app_constants.dart';
+import '../../../../util/images.dart';
 import '../../../../util/styles.dart';
+import '../../../base/custom_image.dart';
 
 class CustomOwnerItem extends StatelessWidget {
   final Chairs? chair;
@@ -46,20 +50,13 @@ class CustomOwnerItem extends StatelessWidget {
                   )
               ),
               child: ClipOval(
-                child: FadeInImage.assetNetwork(
-                  placeholder:
-                  'https://www.bing.com/th?id=OIP.roQHQEuNf8SdJJ7wS3RxtgHaHa&w=150&h=150&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2',
-                  // Provide a local placeholder image
-                  image:
-                  '${roomController.inRoom!.owner!.image}',
+                child:CustomImage(
+                  placeholder: Images.guestIconLight,
+                  image: '${AppConstants.mediaUrl}/profile'
+                      '/${roomController.inRoom!.owner!.image}',
+                  width: 70.w,
+                  height: 50.h,
                   fit: BoxFit.cover,
-                  // Ensure the image covers the entire circular area
-                  imageErrorBuilder: (context,
-                      error, stackTrace) {
-                    return const Image(
-                        image: NetworkImage(
-                            'https://www.bing.com/th?id=OIP.roQHQEuNf8SdJJ7wS3RxtgHaHa&w=150&h=150&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2')); // Handle image loading error
-                  },
                 ),
               ),
             ),

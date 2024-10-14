@@ -59,71 +59,65 @@ class AudioRoomAgoraScreen extends StatelessWidget {
                             SizedBox(height: 40.h),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(
-                                    width: 50.w,
-                                    child: ((room.isOwner!) ||
-                                            (roomController
-                                                    .inRoom!.chairs?[0].user !=
-                                                null))
-                                        ?  CustomOwnerItem(roomModel:roomController
-                                        .inRoom!,chair:roomController
-                                        .inRoom!.chairs?[0] ,)
-                                        : Container(
-                                            width: 50.w, // Reduced width
-                                            decoration: BoxDecoration(
-                                              color: Colors.white70
-                                                  .withOpacity(.7),
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: CustomChair(
-                                              chair: roomController
-                                                  .inRoom!.chairs![0],
-                                              numberOfItem: 1,
-                                            ))),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
+                                const Spacer(flex: 2),
+
                                 SizedBox(
                                   width: 50.w,
-                                  child: Column(
-                                    children: [
-                                      SeatItem(
-                                        chair:
-                                            roomController.inRoom!.chairs![1],
-                                        numberOfItem: 2,
-                                        userModel: userModel,
-                                        roomModel: room,
-                                      ),
-                                      ((room.isOwner!) ||
-                                              (roomController.inRoom!.chairs?[0]
-                                                      .user !=
-                                                  null))
-                                          ? Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 4.0),
-                                              // Reduce top padding
-                                              child: Text(
-                                                "",
-                                                // Show only the first name
-                                                style: robotoWhite.copyWith(
-                                                    fontSize: 10),
-                                                textAlign: TextAlign.center,
-                                                overflow: TextOverflow.ellipsis,
-                                                // Avoid overflow
-                                                maxLines: 1,
-                                              ),
-                                            )
-                                          : const SizedBox(),
-                                    ],
+                                  child: ((room.isOwner!) ||
+                                      (roomController.inRoom!.chairs?[0].user != null))
+                                      ? CustomOwnerItem(
+                                    roomModel: roomController.inRoom!,
+                                    chair: roomController.inRoom!.chairs?[0],
+                                  )
+                                      : Container(
+                                    width: 50.w, // Adjust width
+                                    decoration: BoxDecoration(
+                                      color: Colors.white70.withOpacity(.7),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: CustomChair(
+                                      chair: roomController.inRoom!.chairs![0],
+                                      numberOfItem: 1,
+                                      imageChair: 'assets/images/vip_chair.webp',
+                                    ),
+                                  ),
+                                ),
+
+                                const Spacer(flex: 1),
+
+                                Padding(
+                                  padding: EdgeInsets.only(right: 11.w),
+                                  child: SizedBox(
+                                    width: 50.w,
+                                    child: Column(
+                                      children: [
+                                        SeatItem(
+                                          chair: roomController.inRoom!.chairs![1],
+                                          numberOfItem: 2,
+                                          userModel: userModel,
+                                          roomModel: room,
+                                          imageChair: 'assets/images/special_chair.webp',
+                                        ),
+                                        ((room.isOwner!) || (roomController.inRoom!.chairs?[0].user != null))
+                                            ? Padding(
+                                          padding: const EdgeInsets.only(top: 4.0),
+                                          child: Text(
+                                            "",
+                                            style: robotoWhite.copyWith(fontSize: 10),
+                                            textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                        )
+                                            : const SizedBox(),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              width: 4.w,
-                            ),
+
                             SizedBox(height: 15.h),
                             Padding(
                               padding:

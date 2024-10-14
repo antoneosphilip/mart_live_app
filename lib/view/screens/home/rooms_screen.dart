@@ -74,7 +74,7 @@ class _RoomsScreenState extends State<RoomsScreen> {
                     controller: _scrollController,
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 90,
                         ),
                         Center(

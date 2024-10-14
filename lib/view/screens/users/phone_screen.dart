@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:live_app/controller/home_controller.dart';
 import 'package:live_app/util/styles.dart';
 import 'package:live_app/view/base/custom_text_field.dart';
+import 'package:live_app/view/screens/users/widget/country_item.dart';
 import 'package:live_app/view/screens/wallet/widget/custom_line.dart';
 import 'package:live_app/view/widgets/app_bar.dart';
+
+import '../../../util/app_constants.dart';
+import '../../base/custom_image.dart';
 
 class PhoneScreen extends StatefulWidget {
   @override
@@ -22,18 +28,9 @@ class _PhoneScreenState extends State<PhoneScreen> {
   }
 
   // Function to filter countries based on search input
-  void _filterCountries(String query) {
-    final results = countries
-        .where((country) =>
-            country['name']!.toLowerCase().contains(query.toLowerCase()))
-        .toList();
-    setState(() {
-      filteredCountries = results;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final homeController=Get.find<HomeController>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const AppBarCustom(name: 'Country/region'),
@@ -57,25 +54,9 @@ class _PhoneScreenState extends State<PhoneScreen> {
                   ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: filteredCountries.length, // Display only filtered list
+                    itemCount: homeController.countries.length, // Display only filtered list
                     itemBuilder: (context, index) {
-                      final country = filteredCountries[index];
-                      return Column(
-                        children: [
-                          Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: 16.w),
-                            child: Row(
-                              children: [
-                                Text(country['name']!,style: robotoBlack.copyWith(fontWeight: FontWeight.w300),),
-                                const Spacer(),
-                                SvgPicture.asset(country['flag']!,width: 30,)
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 12.h,),
-                           CustomLine(color: Colors.grey[200],),
-                        ],
-                      );
+                      return CountryItem(country: homeController.countries[index]);
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return SizedBox(height: 10.h,);

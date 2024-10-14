@@ -34,6 +34,7 @@ import 'package:live_app/view/screens/search/search_screen.dart';
 import 'package:live_app/view/screens/setting/setting_screen.dart';
 import 'package:live_app/view/screens/splash/splash_screen.dart';
 import 'package:live_app/view/screens/users/edit_profile_Screen.dart';
+import 'package:live_app/view/screens/users/gender_screen.dart';
 import 'package:live_app/view/screens/users/nick_name_screen.dart';
 
 import '../view/base/room/setting_room_screen.dart';
@@ -131,6 +132,7 @@ class RouteHelper {
   static const String signature = '/signature';
   static const String inviteFriends = '/invite_friends';
   static const String networkTest = '/network_test';
+  static const String genderScreen = '/gender_screen';
 
   static String getInitialRoute({bool fromSplash = false}) =>
       '$initial?from-splash=$fromSplash';
@@ -252,6 +254,12 @@ class RouteHelper {
       name: createFamilyWithData,
       page: () => getRoute(
         CreateFamilyWithData(image: Get.arguments['image'], gold:  Get.arguments['gold'],),
+      ),
+    ),
+    GetPage(
+      name: genderScreen,
+      page: () => getRoute(
+        GenderScreen(),
       ),
     ),
     GetPage(
