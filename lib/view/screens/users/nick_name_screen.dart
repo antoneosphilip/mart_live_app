@@ -83,15 +83,23 @@ class _NickNameScreenState extends State<NickNameScreen> {
                       Container(
                         width: 20.w,
                         height: 20.h,
-                        decoration: const BoxDecoration(
+                        decoration:   const BoxDecoration(
                           color: Colors.grey,
                           shape: BoxShape.circle,
                         ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.close,
-                            size: 16,
-                            color: Colors.white,
+                        child: InkWell(
+                          onTap: () {
+                            userController.nameController.clear();
+                            setState(() {
+                              _charCount=0;
+                            });
+                          },
+                          child: const Center(
+                            child: Icon(
+                              Icons.close,
+                              size: 16,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),

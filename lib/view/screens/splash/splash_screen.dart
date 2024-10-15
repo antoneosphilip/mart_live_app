@@ -41,7 +41,7 @@ class SplashScreenState extends State<SplashScreen> {
             : ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: isNotConnected ? Colors.red : Colors.green,
-          duration: Duration(seconds: isNotConnected ? 3 : 3),
+          duration: Duration(seconds: isNotConnected ? 6000 : 3),
           content: Text(
             isNotConnected ? 'no_connection'.tr : 'connected'.tr,
             textAlign: TextAlign.center,
@@ -53,8 +53,9 @@ class SplashScreenState extends State<SplashScreen> {
       }
       firstTime = false;
     });
-
-    Get.find<SplashController>().initSharedData();
+    if(Get.find<AuthController>().isLoggedIn()) {
+      Get.find<SplashController>().initSharedData();
+    }
     _route();
   }
 
@@ -68,7 +69,7 @@ class SplashScreenState extends State<SplashScreen> {
   void _route() {
     Get.find<SplashController>().getConfigData().then((isSuccess) {
       if (isSuccess) {
-        Timer(const Duration(seconds: 30), () async {
+        Timer(const Duration(seconds: 1), () async {
           if (widget.body != null) {
             if (widget.body!.notificationType == NotificationType.order) {
             } else if (widget.body!.notificationType ==
@@ -86,6 +87,9 @@ class SplashScreenState extends State<SplashScreen> {
               Get.find<AuthController>().updateToken();
               Get.offNamed(RouteHelper.getInitialRoute(fromSplash: true));
             }
+            else{
+              Get.toNamed(RouteHelper.signIn);
+            }
           }
         });
       }
@@ -94,8 +98,9 @@ class SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Get.find<SplashController>().initSharedData();
-
+    if(Get.find<AuthController>().isLoggedIn()) {
+      Get.find<SplashController>().initSharedData();
+    }
     return Scaffold(
       key: _globalKey,
       body: GetBuilder<SplashController>(builder: (splashController) {
@@ -119,20 +124,20 @@ class SplashScreenState extends State<SplashScreen> {
               child: Center(
                 child: splashController.hasConnection
                     ? const Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          CircleAvatar(
-                            radius: 50,
-                            backgroundColor: Colors.transparent,
-                            backgroundImage: AssetImage(Images.logo),
-                          ),
-                          SizedBox(height: Dimensions.paddingSizeSmall),
-                          Text(
-                            AppConstants.appName,
-                            style: TextStyle(color: Colors.cyan),
-                          )
-                        ],
-                      )
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.transparent,
+                      backgroundImage: AssetImage(Images.logo),
+                    ),
+                    SizedBox(height: Dimensions.paddingSizeSmall),
+                    Text(
+                      AppConstants.appName,
+                      style: TextStyle(color: Colors.cyan),
+                    )
+                  ],
+                )
                     : NoInternetScreen(child: SplashScreen(body: widget.body)),
               ),
             ),

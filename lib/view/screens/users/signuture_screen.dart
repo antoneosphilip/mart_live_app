@@ -61,9 +61,9 @@ class _SignatureScreenState extends State<SignatureScreen> {
                     _charCount = text.length;
                   });
                 },
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   border: InputBorder.none,
-                  hintText: '',
+                  hintText: userController.userDetailsModel?.pio??"",
                 ),
               ),
             ),
@@ -86,11 +86,19 @@ class _SignatureScreenState extends State<SignatureScreen> {
                       color: Colors.grey,
                       shape: BoxShape.circle,
                     ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.close,
-                        size: 16,
-                        color: Colors.white,
+                    child: InkWell(
+                      onTap: () {
+                        userController.pioController.clear();
+                        setState(() {
+                          _charCount=0;
+                        });
+                      },
+                      child: const Center(
+                        child: Icon(
+                          Icons.close,
+                          size: 16,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

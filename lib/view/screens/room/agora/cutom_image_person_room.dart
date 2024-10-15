@@ -29,13 +29,7 @@ class _CustomImagePersonRoomState extends State<CustomImagePersonRoom>
     return GetBuilder<RoomController>(
       builder: (roomController) {
         return Container(
-          decoration:BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color:Colors.blue,
-              width: roomController.borderThickness,
-            ),
-          ),
+
           child: ClipOval(
             child: CustomImage(
               placeholder: Images.guestIconLight,

@@ -142,7 +142,7 @@ class AuthController extends GetxController implements GetxService {
       authRepo.saveUserToken(response.body['token']);
       await authRepo.updateToken();
 
-      // Get.find<UserController>().getUserInfo();
+      Get.find<UserController>().getUserInfo();
       Get.find<UserController>().getUserData();
       responseModel = ResponseModel(true,
           '${response.body['is_phone_verified']}${response.body['token']}');
