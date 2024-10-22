@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:live_app/data/model/response/room_model.dart';
 
 import '../../../../controller/room_controller.dart';
+import '../../../../controller/splash_controller.dart';
 import '../../../../controller/user_controller.dart';
 import '../../../../util/app_constants.dart';
 import '../../../widgets/masked_image.dart';
@@ -10,13 +11,19 @@ import '../../../widgets/masked_image.dart';
 class SquareTopRoomsItem extends StatelessWidget {
   final RoomModel room;
   final String? no;
+
   const SquareTopRoomsItem({super.key, required this.room, this.no});
 
   @override
   Widget build(BuildContext context) {
+    String? engine =
+        Get.find<SplashController>().configModel!.liveStreamingEngine;
     return InkWell(
       onTap: () {
-        Get.find<RoomController>().joinRoomAgora(room,Get.find<UserController>().userModel!);
+        (engine == 'zego')
+            ? Get.find<RoomController>().joinRoom(room)
+            : Get.find<RoomController>()
+                .joinRoomAgora(room, Get.find<UserController>().userModel!);
       },
       child: MaskedImage(
         frame: room.frame != null

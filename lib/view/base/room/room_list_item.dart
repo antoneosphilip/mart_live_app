@@ -8,6 +8,7 @@ import 'package:live_app/util/app_constants.dart';
 import 'package:live_app/util/dimensions.dart';
 import 'package:live_app/view/widgets/masked_image.dart';
 
+import '../../../controller/splash_controller.dart';
 import '../../../controller/user_controller.dart';
 import '../../widgets/dynamic_image.dart';
 import '../custom_image.dart';
@@ -21,10 +22,15 @@ class RoomListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
+      String? engine =
+          Get.find<SplashController>().configModel!.liveStreamingEngine;
       double height = constraints.maxHeight * 0.75;
       return InkWell(
         onTap: () {
-          Get.find<RoomController>().joinRoomAgora(room,userModel!);
+          (engine == 'zego')
+              ? Get.find<RoomController>().joinRoom(room)
+              : Get.find<RoomController>()
+              .joinRoomAgora(room, Get.find<UserController>().userModel!);
         },
         child: Stack(
           children: [

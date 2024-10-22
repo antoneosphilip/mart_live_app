@@ -33,7 +33,7 @@ class CustomChair extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                  Image(
-                  image: AssetImage(imageChair??'assets/image/chair.webp'),
+                  image: AssetImage(imageChair??'assets/images/special_chair.webp'),
                   fit: BoxFit
                       .cover, // Ensure the image covers the circle
                 ),

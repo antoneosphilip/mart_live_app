@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:live_app/controller/room_controller.dart';
+import 'package:live_app/view/screens/room/agora/audio_room_Screen.dart';
 import 'package:live_app/view/screens/room/zego_platform/audio/zego_room_screen.dart';
 
 import '../../../controller/splash_controller.dart';
@@ -22,11 +23,12 @@ class AudioRoomScreen extends StatelessWidget {
       children: [
         (engine == 'zego')
             ? ZegoRoomScreen(
+
                 room: roomController.inRoom!,
                 user: userController.userModel!,
               )
             : (engine == 'agora')
-                ? Container()
+                ? AudioRoomAgoraScreen(room: roomController.inRoom!, userModel: userController.userModel!)
                 : SizedBox(),
         BottomBarLayer(),
         Positioned(bottom: 50, child: InRoomGiftShowLayer())

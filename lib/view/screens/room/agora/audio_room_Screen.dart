@@ -79,7 +79,7 @@ class AudioRoomAgoraScreen extends StatelessWidget {
                                     child: CustomChair(
                                       chair: roomController.inRoom!.chairs![0],
                                       numberOfItem: 1,
-                                      imageChair: 'assets/images/vip_chair.webp',
+                                      imageChair: 'assets/image/chair.webp',
                                     ),
                                   ),
                                 ),
@@ -97,7 +97,7 @@ class AudioRoomAgoraScreen extends StatelessWidget {
                                           numberOfItem: 2,
                                           userModel: userModel,
                                           roomModel: room,
-                                          imageChair: 'assets/images/special_chair.webp',
+                                          imageChair: 'assets/images/vip_chair.webp',
                                         ),
                                         ((room.isOwner!) || (roomController.inRoom!.chairs?[0].user != null))
                                             ? Padding(
