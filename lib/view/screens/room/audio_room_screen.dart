@@ -23,15 +23,14 @@ class AudioRoomScreen extends StatelessWidget {
       children: [
         (engine == 'zego')
             ? ZegoRoomScreen(
-
                 room: roomController.inRoom!,
                 user: userController.userModel!,
               )
             : (engine == 'agora')
                 ? AudioRoomAgoraScreen(room: roomController.inRoom!, userModel: userController.userModel!)
-                : SizedBox(),
-        BottomBarLayer(),
-        Positioned(bottom: 50, child: InRoomGiftShowLayer())
+                : const SizedBox(),
+        const BottomBarLayer(),
+        const Positioned(bottom: 50, child: InRoomGiftShowLayer())
       ],
     );
   }
