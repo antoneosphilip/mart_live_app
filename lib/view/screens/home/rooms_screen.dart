@@ -84,7 +84,7 @@ class _RoomsScreenState extends State<RoomsScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Center(
-                                    child: CarouselView(
+                                    child: CarouselViewWidget(
                                       width: MediaQuery.of(context).size.width -
                                           20,
                                       height:
@@ -105,7 +105,7 @@ class _RoomsScreenState extends State<RoomsScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        CarouselView(
+                                        CarouselViewWidget(
                                           width: (MediaQuery.of(context)
                                                       .size
                                                       .width -
@@ -125,7 +125,7 @@ class _RoomsScreenState extends State<RoomsScreen> {
                                           // scrollDirection: Axis.vertical,
                                           // duration: 4,
                                         ),
-                                        CarouselView(
+                                        CarouselViewWidget(
                                           width: (MediaQuery.of(context)
                                                       .size
                                                       .width -

@@ -4,7 +4,7 @@ import 'package:live_app/util/dimensions.dart';
 import 'package:live_app/view/base/custom_image.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
-class CarouselView extends StatelessWidget {
+class CarouselViewWidget extends StatelessWidget {
   final double width;
   final double height;
   final List? itemList;
@@ -15,7 +15,7 @@ class CarouselView extends StatelessWidget {
   final String? baseUrl;
   final String imageIndexName;
   final Axis scrollDirection;
-  const CarouselView(
+  const CarouselViewWidget(
       {super.key,
       required this.onPageChanged,
       required this.onTap,

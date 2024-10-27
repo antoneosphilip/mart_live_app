@@ -21,6 +21,7 @@ import 'package:live_app/theme/dark_theme.dart';
 import 'package:live_app/theme/light_theme.dart';
 import 'package:live_app/util/app_constants.dart';
 import 'package:live_app/util/messages.dart';
+import 'package:live_app/view/screens/splash/splash_screen.dart';
 import 'package:live_app/view/widgets/app_mask.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -111,10 +112,11 @@ class _MyAppState extends State<MyApp> {
               translations: Messages(languages: widget.languages),
               fallbackLocale: Locale(AppConstants.languages[0].languageCode!,
                   AppConstants.languages[0].countryCode),
-              initialRoute: RouteHelper.getSplashRoute(widget.body),
+              // initialRoute: RouteHelper.getSplashRoute(widget.body),
               getPages: RouteHelper.routes,
               defaultTransition: Transition.topLevel,
               transitionDuration: const Duration(milliseconds: 500),
+              home: SplashScreen(body: widget.body),
               builder: (context, child) {
                 Widget app = Stack(
                   alignment: AlignmentDirectional.topStart,

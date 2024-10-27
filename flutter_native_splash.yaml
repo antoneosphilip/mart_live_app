@@ -22,7 +22,8 @@ flutter_native_splash:
 
   # The image parameter allows you to specify an image used in the splash screen.  It must be a
   # png file and should be sized for 4x pixel density.
-  image: assets/images/splash_icon.png
+  image: assets/icons/app_icon3.jpg
+  color: "#4000bf"
 
   # The branding property allows you to specify an image used as branding in the splash screen.
   # It must be a png file. It is supported for Android, iOS and the Web.  For Android 12,
@@ -60,7 +61,7 @@ flutter_native_splash:
   #color: "#42a5f5"
 
   # App icon background color.
-  icon_background_color: "#111111"
+  icon_background_color: "#4000bf"
 
   # The branding property allows you to specify an image used as branding in the splash screen.
   #branding: assets/dart.png

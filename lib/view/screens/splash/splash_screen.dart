@@ -2,19 +2,20 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:live_app/controller/auth_controller.dart';
 import 'package:live_app/controller/splash_controller.dart';
 import 'package:live_app/data/model/body/notification_body.dart';
-import 'package:live_app/helper/route_helper.dart';
-import 'package:live_app/util/app_constants.dart';
-import 'package:live_app/util/dimensions.dart';
 import 'package:live_app/util/images.dart';
 import 'package:live_app/view/base/no_internet_screen.dart';
-import 'package:svgaplayer_flutter/player.dart';
+
+import '../../../helper/route_helper.dart';
+import '../../../util/styles.dart';
 
 class SplashScreen extends StatefulWidget {
   final NotificationBody? body;
+
   const SplashScreen({Key? key, required this.body}) : super(key: key);
 
   @override
@@ -41,7 +42,6 @@ class SplashScreenState extends State<SplashScreen> {
             : ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: isNotConnected ? Colors.red : Colors.green,
-          duration: Duration(seconds: isNotConnected ? 6000 : 3),
           content: Text(
             isNotConnected ? 'no_connection'.tr : 'connected'.tr,
             textAlign: TextAlign.center,
@@ -53,7 +53,7 @@ class SplashScreenState extends State<SplashScreen> {
       }
       firstTime = false;
     });
-    if(Get.find<AuthController>().isLoggedIn()) {
+    if (Get.find<AuthController>().isLoggedIn()) {
       Get.find<SplashController>().initSharedData();
     }
     _route();
@@ -98,7 +98,7 @@ class SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if(Get.find<AuthController>().isLoggedIn()) {
+    if (Get.find<AuthController>().isLoggedIn()) {
       Get.find<SplashController>().initSharedData();
     }
     return Scaffold(
@@ -109,37 +109,24 @@ class SplashScreenState extends State<SplashScreen> {
             Container(
               width: Get.width,
               height: Get.height,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/images/bg.jpeg'),
+                    image: AssetImage('assets/image/back_ground2.webp'),
                     fit: BoxFit.fill),
               ),
-              child: SVGASimpleImage(
-                assetsName: "assets/svg/frasha.svga",
-              ),
             ),
-            Container(
-              width: Get.width,
-              height: Get.height * 0.4,
-              child: Center(
-                child: splashController.hasConnection
-                    ? const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.transparent,
-                      backgroundImage: AssetImage(Images.logo),
-                    ),
-                    SizedBox(height: Dimensions.paddingSizeSmall),
-                    Text(
-                      AppConstants.appName,
-                      style: TextStyle(color: Colors.cyan),
-                    )
-                  ],
-                )
-                    : NoInternetScreen(child: SplashScreen(body: widget.body)),
-              ),
+            Center(
+              child: splashController.hasConnection
+                  ? Container(
+                    height: 140.h,
+                    width: 140.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        image: const DecorationImage(
+                          image: AssetImage(Images.logo2),
+                        )),
+                  )
+                  : NoInternetScreen(child: SplashScreen(body: widget.body)),
             ),
           ],
         );

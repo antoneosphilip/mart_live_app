@@ -1,5 +1,7 @@
 class Images {
   static const String logo = 'assets/image/logo.png';
+  static const String logo2 = 'assets/icons/app_icon_2.webp';
+
   static const String placeholder = 'assets/images/place_holder.gif';
   static const String notificationPlaceholder =
       'assets/image/notification_placeholder.jpg';
