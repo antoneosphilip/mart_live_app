@@ -29,7 +29,6 @@ void showCustomDialog(BuildContext context,String text,Function() onPressed) {
                 Column(
                   children: [
 
-
                     SizedBox(height: 20.h), // Reduce space for a compact look
                     Text(
                       'Leave the $text',
