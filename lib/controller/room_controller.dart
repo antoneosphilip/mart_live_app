@@ -18,6 +18,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:zego_uikit_prebuilt_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
 
 import '../data/api/api_checker.dart';
+import '../data/model/response/get_back_ground_model.dart';
 import '../data/model/response/get_black_list_model.dart';
 import '../data/model/response/gift_model.dart';
 import '../data/model/response/response_model.dart';
@@ -40,6 +41,8 @@ class RoomController extends GetxController implements GetxService {
   RoomController({required this.roomRepo});
 
   RoomBlackListModel? roomBlackListModel;
+  GetBackGroundModel? getBackGroundList;
+
   UserController userController = Get.find();
   RoomModel? inRoom;
   UserModel? user;
@@ -356,14 +359,52 @@ class RoomController extends GetxController implements GetxService {
     isLoading = true;
     Response response = await roomRepo.getBlackList();
     if (response.statusCode == 200) {
+      print("sucessssssssssss");
       roomBlackListModel = RoomBlackListModel.fromJson(response.body);
     } else {
+      print("erorrrrrrrrrrrrrr");
+      print(response.body);
+
       ApiChecker.checkApi(response, isList: false);
     }
     isLoading = false;
 
     update();
   }
+
+  Future<void> getBackGround() async {
+    isLoading = true;
+    Response response = await roomRepo.getBackGround();
+    if (response.statusCode == 200) {
+      print("sucessssssssssss");
+      getBackGroundList = GetBackGroundModel.fromJson(response.body);
+    } else {
+      print("erorrrrrrrrrrrrrr");
+      print(response.body);
+
+      ApiChecker.checkApi(response, isList: false);
+    }
+    isLoading = false;
+
+    update();
+  }
+  Future<void> showRoom({required int id}) async {
+    isLoading = true;
+    Response response = await roomRepo.showRoom(id: id);
+    if (response.statusCode == 200) {
+      getBackGroundList = GetBackGroundModel.fromJson(response.body);
+    } else {
+      print("erorrrrrrrrrrrrrr");
+      print(response.body);
+
+      ApiChecker.checkApi(response, isList: false);
+    }
+    isLoading = false;
+
+    update();
+  }
+
+
 
   Future<void> removeUserFromBlackList({required int userId}) async {
     isLoading = true;

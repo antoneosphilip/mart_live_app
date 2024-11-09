@@ -93,7 +93,7 @@ class UserModel {
     isHeSentFriendRequest = json['is_he_sent_friend_request'];
     ownRoom = json['own_room'] != null ? RoomModel.fromJson(json['own_room']) : null;
     inRoom = json['in_room'] != null ? RoomModel.fromJson(json['in_room']) : null;
-    wallet = json['wallet'] != null ? WalletModel.fromJson(json['wallet']) : null;
+    wallet = json['wallet'] != null ? WalletModel.fromJson(json['wallet']) : WalletModel(diamond: '0',gameCoins: '0',gold: '0',silver: '0',);
     senderLevel = json['sender_level'] != null ? Level.fromJson(json['sender_level']) : null;
     consigneeLevel = json['consignee_level'] != null ? Level.fromJson(json['consignee_level']) : null;
     time = json['time'];

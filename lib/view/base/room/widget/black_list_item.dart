@@ -33,7 +33,7 @@ class BlackListItem extends StatelessWidget {
           width: 5.w,
         ),
         CustomNetworkImage(
-          image: roomBlackListData.user!.image,
+          image: roomBlackListData.user?.image,
           width: 50.w,
           height: 50.w,
         ),
@@ -44,20 +44,20 @@ class BlackListItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              roomBlackListData.user!.name!,
+              roomBlackListData.user?.name!??"",
               style: robotoLargeBold.copyWith(fontWeight: FontWeight.w500),
             ),
             Container(
               width: 40.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24.r),
-                color: roomBlackListData.user!.gender == "male"
+                color: roomBlackListData.user?.gender == "male"
                     ? Colors.lightBlueAccent.shade100
                     : Colors.pinkAccent,
               ),
               child: Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: roomBlackListData.user!.gender == "male"
+                  child: roomBlackListData.user?.gender == "male"
                       ? const Icon(
                           Icons.male,
                           color: Colors.blue,

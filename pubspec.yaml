@@ -120,7 +120,7 @@ flutter:
     - assets/svg/
     - assets/icon/
     - assets/flags/
-
+    - assets/animation/
   fonts:
     - family: Roboto
       fonts:

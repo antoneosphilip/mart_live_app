@@ -30,6 +30,8 @@ class _SettingRoomItemsState extends State<SettingRoomItems> {
   void initState() {
     Get.find<RoomController>().getRoomTypes();
     Get.find<RoomController>().getBlackList();
+    Get.find<RoomController>().getBackGround();
+
     super.initState();
   }
   @override
@@ -86,7 +88,7 @@ class _SettingRoomItemsState extends State<SettingRoomItems> {
                   text: "Room Background",
                   iconColor: Colors.green, // Green color for icon
                   onTap: () {
-                    showBackGroundRoom(context);
+                    showBackGroundRoom(context,roomController);
                   },
                 ),
                 SizedBox(
@@ -127,10 +129,13 @@ class _SettingRoomItemsState extends State<SettingRoomItems> {
             ),
             Column(
               children: [
-                const RoomSettingItem(
+                 RoomSettingItem(
                   icon: Icons.edit, // Icon for Edit Room
                   text: "Edit Room",
                   iconColor: Colors.red, // Red color for icon
+                  onTap: () {
+                    Get.toNamed(RouteHelper.editRoom);
+                  },
                 ),
                 SizedBox(
                   height: 5.h,

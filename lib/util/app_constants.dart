@@ -35,6 +35,10 @@ class AppConstants {
   static const String roomTypesUri = '/api/v2/room-types';
   static const String updateRoomTypesUri = '/api/v2/rooms/update';
   static const String getBlackLists = '/api/v2/rooms/black_list';
+  static const String getBackGround = '/api/v2/rooms/backgrounds';
+  static const String showRoom = '/api/v2/rooms';
+
+
   static const String removeUserFromBlackList = '/api/v2/rooms/black_list/remove_user';
   static const String addUserToBlackList = '/api/v2/rooms/black_list/add_user';
   static const String sitChair = '/api/v2/rooms/chair/sit';
@@ -250,7 +254,7 @@ class AppConstants {
 
 ////// agora
   static const String appAgoraId = 'b7f620807cab40948f165547fc754260'; // Replace with your Agora App ID
-  static const String agoraToken = '007eJxTYFg+o/xMAFdrwZIabfFTmz0mRNSKVPuHJAka7/tjEppTIaLAkGSeZmZkYGFgnpyYZGJgaWKRZmhmampinpZsbmpiZGYwI14pvSGQkYE9bT8zIwMEgvh8DLmJRSXxyRmJJfE5mWWpDAwAp5Uf4A=='; // Replace with token
+  static const String agoraToken = '007eJxTYAh+POEqN5PGLcUXhpKaFrtPy7DpXgj5Htrh3LTh2Kv0Q7IKDEnmaWZGBhYG5smJSSYGliYWaYZmpqYm5mnJ5qYmRmYGlcVa6Q2BjAxBhwRYGRkgEMTnY8hNLCqJT85ILInPySxLZWAAAPaNIP0='; // Replace with token
   static const String channelName = 'mart_chat_live'; // Channel name
 
   static const String topic = 'all_zone_customer';

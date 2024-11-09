@@ -6,6 +6,7 @@ import 'package:live_app/data/model/body/notification_body.dart';
 import 'package:live_app/data/model/body/social_log_in_body.dart';
 import 'package:live_app/data/model/response/conversation_model.dart';
 import 'package:live_app/util/html_type.dart';
+import 'package:live_app/view/base/room/widget/edit_room.dart';
 import 'package:live_app/view/screens/account_security/account_security.dart';
 import 'package:live_app/view/screens/all_families/all_families_screen.dart';
 import 'package:live_app/view/screens/app_mode/app_mode_screen.dart';
@@ -133,6 +134,7 @@ class RouteHelper {
   static const String inviteFriends = '/invite_friends';
   static const String networkTest = '/network_test';
   static const String genderScreen = '/gender_screen';
+  static const String editRoom = '/edit_room';
 
   static String getInitialRoute({bool fromSplash = false}) =>
       '$initial?from-splash=$fromSplash';
@@ -226,6 +228,10 @@ class RouteHelper {
     GetPage(
       name: generalSetting,
       page: () => getRoute(const GeneralSetting()),
+    ),
+    GetPage(
+      name: editRoom,
+      page: () => getRoute(const EditRoom()),
     ),
     GetPage(
       name: userFamily,

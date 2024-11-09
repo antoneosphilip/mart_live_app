@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:live_app/data/model/response/get_back_ground_model.dart';
 import 'package:live_app/view/base/room/widget/room_background_item.dart';
 import 'package:live_app/view/base/room/widget/room_shape_item.dart';
 
 class RoomBackGroundListView extends StatefulWidget {
+  final List<BackGroundItems> backGroundList;
   int i = 0;
-  RoomBackGroundListView({super.key});
+
+  RoomBackGroundListView( {super.key, required this.backGroundList});
 
   @override
   State<RoomBackGroundListView> createState() => _RoomBackGroundListViewState();
+
 }
 
 class _RoomBackGroundListViewState extends State<RoomBackGroundListView> {
   @override
   Widget build(BuildContext context) {
-    List<String> roomShapeList = [
-      'classic',
-      'party',
-      'video',
-    ];
+
     return SizedBox(
       height: 300.h,
       child: ListView.separated(
@@ -31,8 +31,8 @@ class _RoomBackGroundListViewState extends State<RoomBackGroundListView> {
                   });
                 },
                 child: RoomBackGroundItem(
-                  text: roomShapeList[index],
-                  isSelected: widget.i == index, image: '',
+               backGroundList:  widget.backGroundList[index],
+                  isSelected:  widget.i == index,
                 ));
           },
           separatorBuilder: (context, index) {
@@ -40,7 +40,7 @@ class _RoomBackGroundListViewState extends State<RoomBackGroundListView> {
               width: 15.w,
             );
           },
-          itemCount: roomShapeList.length),
+          itemCount: widget.backGroundList.length),
     );
   }
 }

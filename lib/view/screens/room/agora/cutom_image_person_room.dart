@@ -29,7 +29,6 @@ class _CustomImagePersonRoomState extends State<CustomImagePersonRoom>
     return GetBuilder<RoomController>(
       builder: (roomController) {
         return Container(
-
           child: ClipOval(
             child: CustomImage(
               placeholder: Images.guestIconLight,

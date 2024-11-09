@@ -41,6 +41,11 @@ final robotoWhite = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: Dimensions.fontSizeSmall,
     color: Colors.white);
+final robotoWhiteMedium = TextStyle(
+    fontFamily: AppConstants.fontFamily,
+    fontWeight: FontWeight.w500,
+    fontSize: Dimensions.fontSizeDefault,
+    color: Colors.white);
 final robotoWhiteBold = TextStyle(
     fontFamily: AppConstants.fontFamily,
     fontWeight: FontWeight.bold,

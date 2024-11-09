@@ -1,20 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:live_app/data/model/response/get_back_ground_model.dart';
 import 'package:live_app/util/colors.dart';
 
 import '../../../../util/styles.dart';
 
 class RoomBackGroundItem extends StatelessWidget {
-  final String text;
-  final String image;
+  final BackGroundItems backGroundList;
   final bool isSelected;
-
   const RoomBackGroundItem({
-    super.key,
-    required this.text,
-    required this.isSelected,
-    required this.image,
+    super.key,required this.backGroundList, required this.isSelected,
   });
 
   @override
@@ -29,14 +25,15 @@ class RoomBackGroundItem extends StatelessWidget {
             ),
             child: CachedNetworkImage(
               fit: BoxFit.cover,
-              imageUrl: image,
+              imageUrl: backGroundList.thumbnail!,
               placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator(
                     color: ColorManger.primary,
                   )),
-              errorWidget: (context, url, error) => const Image(
+              errorWidget: (context, url, error) =>  const Image(
                 image: CachedNetworkImageProvider(
-                    'https://www.bing.com/th?id=OIP.roQHQEuNf8SdJJ7wS3RxtgHaHa&w=150&h=150&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2'),
+                    'https://www.bing.com/th?id=OIP.roQHQEuNf8SdJJ7wS3RxtgHaHa&w=150&h=150&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2',
+              ),
                 fit: BoxFit.cover,
               ),
             )),
@@ -50,7 +47,7 @@ class RoomBackGroundItem extends StatelessWidget {
               padding:  EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),
               child: Center(
                 child: Text(
-                  text,
+                  backGroundList.price!,
                   style: robotoBlack2.copyWith(
                       color: isSelected?Colors.white:Colors.grey,
                       decoration: TextDecoration.none,

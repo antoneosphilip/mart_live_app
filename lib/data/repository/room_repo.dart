@@ -78,6 +78,12 @@ class RoomRepo {
   Future<Response> getBlackList() async {
     return await apiClient.getData(AppConstants.getBlackLists);
   }
+  Future<Response> getBackGround() async {
+    return await apiClient.getData(AppConstants.getBackGround);
+  }
+  Future<Response> showRoom({required int id}) async {
+    return await apiClient.getData('${AppConstants.showRoom}/$id');
+  }
 
   Future<Response> removeUserFromBlackList({required int userId}) async {
     return await apiClient

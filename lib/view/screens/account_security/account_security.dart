@@ -18,7 +18,7 @@ class AccountSecurity extends StatelessWidget {
       backgroundColor: ColorManger.whiteColor,
       body: Column(
         children: [
-           AppBarCustom(name: "Account Security".tr),
+          AppBarCustom(name: "Account Security".tr),
           SizedBox(
             height: 20.h,
           ),
