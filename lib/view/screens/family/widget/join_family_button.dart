@@ -9,7 +9,8 @@ class JoinFamilyButton extends StatelessWidget {
   final String text;
   final Function() onTap;
   final double? width;
-  const JoinFamilyButton({super.key, required this.text, required this.onTap,  this.width});
+  final Color? colorText;
+  const JoinFamilyButton({super.key, required this.text, required this.onTap,  this.width, this.colorText});
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +35,10 @@ class JoinFamilyButton extends StatelessWidget {
                 child: Center(
                   child: Text(
                     text,
-                    style: const TextStyle(
+                    style:  TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white60),
+                        color: colorText??Colors.white60),
                   ),
                 ),
               ),

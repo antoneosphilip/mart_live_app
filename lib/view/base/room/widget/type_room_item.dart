@@ -12,18 +12,19 @@ class TypeRoomItem extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 70.h,
-          width: 70.w,
+          height: 60.h,
+          width: 60.w,
           decoration: const BoxDecoration(
               shape: BoxShape.circle, color: Colors.teal),
           child: Center(
             child: Icon(
               Icons.mic,
               size: 30.sp,
-              color: Colors.orangeAccent,
+              color: Colors.white,
             ),
           ),
         ),
+        SizedBox(height: 10.h,),
         Text(
           'friends',
           style: robotoWhiteMedium,

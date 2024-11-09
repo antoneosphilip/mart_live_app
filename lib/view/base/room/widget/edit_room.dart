@@ -1,12 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:live_app/util/styles.dart';
-import 'package:live_app/view/base/room/widget/type_room_item.dart';
+import 'package:live_app/view/base/room/widget/room_defination_item.dart';
 import 'package:live_app/view/base/room/widget/type_room_list_view.dart';
+import 'package:live_app/view/screens/family/widget/join_family_button.dart';
 
+import '../../../../util/colors.dart';
 import '../../../../util/dimensions.dart';
 import '../../../../util/images.dart';
 import '../../custom_image.dart';
+import 'custom_edit_room_textform_field.dart';
+import 'edit_room_app_bar.dart';
+import 'edit_room_image_person.dart';
+import 'edit_room_settings.dart';
 
 class EditRoom extends StatelessWidget {
   const EditRoom({super.key});
@@ -15,95 +22,43 @@ class EditRoom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/back_ground_type_room.webp'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 50.h,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 16.w,
-                ),
-                const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                  size: 20,
-                ),
-                const Spacer(),
-                Center(
-                    child: Text(
-                  'edit room',
-                  style: TextStyle(
-                      fontSize: Dimensions.fontSizeExtraLarge,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white),
-                )),
-                const Spacer(),
-                SizedBox(
-                  width: 16.w,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            Container(
-              height: 100,
-              width: 100,
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: Colors.white),
-              child: const Padding(
-                padding: EdgeInsets.all(2.0),
-                child: ClipOval(
-                  child: CustomImage(
-                    placeholder: Images.guestIconLight,
-                    image:
-                        'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
+      body: Stack(
+        children: [
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/back_ground_type_room.webp'),
+                fit: BoxFit.cover,
               ),
             ),
-            SizedBox(
-              height: 15.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.coffee_sharp,
-                        color: Colors.orangeAccent,
-                      ),
-                      Text(
-                        'type room',
-                        style: robotoWhiteMedium,
-                      ),
-                    ],
+                  SizedBox(
+                    height: 50.h,
                   ),
+                  const EditRoomAppBar(),
                   SizedBox(
                     height: 20.h,
                   ),
-                  const TypeRoomListView()
+                  const EditRoomImagePerson(),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  const EditRoomSettings(),
                 ],
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+          JoinFamilyButton(
+            width: 320,
+            colorText: Colors.white,
+            text: 'Confirm', onTap: () {
+
+          },)
+        ],
       ),
     );
   }
