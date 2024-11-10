@@ -11,7 +11,8 @@ import 'package:live_app/view/base/room/widget/room_setting_item.dart';
 import 'gift_container_agora.dart';
 
 class GiftBoxAgora extends StatelessWidget {
-  const GiftBoxAgora({super.key});
+  final int roomId;
+  const GiftBoxAgora({super.key, required this.roomId});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class GiftBoxAgora extends StatelessWidget {
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
                 ),
                 context: context, builder:(context){
-              return const RoomSettingBottomSheet();
+              return  RoomSettingBottomSheet(roomId: roomId,);
             } );
           },
           child: Container(

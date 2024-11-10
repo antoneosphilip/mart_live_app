@@ -11,7 +11,8 @@ import '../../../../util/styles.dart';
 import '../../../screens/all_families/all_faimiles_Appbar_widget/image_person.dart';
 
 class RoomSettingBottomSheet extends StatelessWidget {
-  const RoomSettingBottomSheet({super.key});
+  final int roomId;
+  const RoomSettingBottomSheet({super.key, required this.roomId});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class RoomSettingBottomSheet extends StatelessWidget {
           SizedBox(
             height: 15.h,
           ),
-          const SettingRoomItems(),
+           SettingRoomItems(roomId:roomId),
         ],
       ),
     );

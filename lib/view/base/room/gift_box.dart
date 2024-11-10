@@ -11,7 +11,8 @@ import 'package:live_app/view/base/room/widget/room_setting_item.dart';
 import '../../../data/model/response/room_setting_model.dart';
 
 class GiftBox extends StatelessWidget {
-  const GiftBox({super.key});
+  final int roomId;
+  const GiftBox({super.key, required this.roomId});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class GiftBox extends StatelessWidget {
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
                 ),
                 context: context, builder:(context){
-              return const RoomSettingBottomSheet();
+              return  RoomSettingBottomSheet(roomId:roomId);
             } );
           },
           child: Container(
@@ -54,7 +55,7 @@ class GiftBox extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50),
                 color: ColorManger.primary,
             ),
-            child: Icon(Icons.settings,color: Colors.white,),
+            child: const Icon(Icons.settings,color: Colors.white,),
           ),
         ),
 

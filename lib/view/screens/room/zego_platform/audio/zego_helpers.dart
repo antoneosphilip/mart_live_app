@@ -35,7 +35,7 @@ class ZegoHelper {
     ];
   }
 
-  static ZegoLiveAudioRoomBottomMenuBarConfig zegoBottomMenuBarConfig() {
+  static ZegoLiveAudioRoomBottomMenuBarConfig zegoBottomMenuBarConfig({required int roomId}) {
     return ZegoLiveAudioRoomBottomMenuBarConfig(
       maxCount: 4,
       hostButtons: [
@@ -45,9 +45,9 @@ class ZegoHelper {
       audienceButtons: [
         ZegoLiveAudioRoomMenuBarButtonName.showMemberListButton,
       ],
-      audienceExtendButtons: [const GiftBox()],
-      hostExtendButtons: [const GiftBox()],
-      speakerExtendButtons: [const GiftBox()],
+      audienceExtendButtons: [ GiftBox(roomId:roomId)],
+      hostExtendButtons: [ GiftBox(roomId:roomId)],
+      speakerExtendButtons: [ GiftBox(roomId:roomId)],
       speakerButtons: [
         ZegoLiveAudioRoomMenuBarButtonName.toggleMicrophoneButton,
         ZegoLiveAudioRoomMenuBarButtonName.showMemberListButton,

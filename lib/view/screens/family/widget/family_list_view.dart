@@ -16,7 +16,7 @@ class FamilyListView extends StatelessWidget {
       child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            return  FamilyMemberItem();
+            return  const FamilyMemberItem();
           },
           separatorBuilder: (context, index) {
             return SizedBox(

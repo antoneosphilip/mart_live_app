@@ -142,7 +142,7 @@ class _ZegoRoomScreenState extends State<ZegoRoomScreen> {
                 roomID: "${widget.user.uuid}",
               )
               ..mediaPlayer.supportTransparent = true
-              ..bottomMenuBar = ZegoHelper.zegoBottomMenuBarConfig()
+              ..bottomMenuBar = ZegoHelper.zegoBottomMenuBarConfig(roomId: widget.room.id!)
               ..bottomMenuBar.showInRoomMessageButton = true
               ..inRoomMessage = ZegoHelper.zegoInRoomMessageConfig(
                   userImage: widget.user.image)

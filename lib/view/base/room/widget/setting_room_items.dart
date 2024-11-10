@@ -18,8 +18,9 @@ import 'black_list_container.dart';
 import 'black_list_item.dart';
 
 class SettingRoomItems extends StatefulWidget {
+  final int roomId;
 
-  const SettingRoomItems({super.key});
+  const SettingRoomItems({super.key, required this.roomId});
 
   @override
   State<SettingRoomItems> createState() => _SettingRoomItemsState();
@@ -31,6 +32,7 @@ class _SettingRoomItemsState extends State<SettingRoomItems> {
     Get.find<RoomController>().getRoomTypes();
     Get.find<RoomController>().getBlackList();
     Get.find<RoomController>().getBackGround();
+    Get.find<RoomController>().showRoom(id: widget.roomId);
 
     super.initState();
   }
@@ -88,7 +90,7 @@ class _SettingRoomItemsState extends State<SettingRoomItems> {
                   text: "Room Background",
                   iconColor: Colors.green, // Green color for icon
                   onTap: () {
-                    showBackGroundRoom(context,roomController);
+                    showBackGroundRoom(context);
                   },
                 ),
                 SizedBox(

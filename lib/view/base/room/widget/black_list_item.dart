@@ -6,6 +6,7 @@ import 'package:live_app/controller/room_controller.dart';
 import 'package:live_app/data/model/response/get_black_list_model.dart';
 import 'package:live_app/view/screens/family/widget/custom_netwok_image.dart';
 
+import '../../../../util/app_constants.dart';
 import '../../../../util/colors.dart';
 import '../../../../util/styles.dart';
 
@@ -33,7 +34,7 @@ class BlackListItem extends StatelessWidget {
           width: 5.w,
         ),
         CustomNetworkImage(
-          image: roomBlackListData.user?.image,
+          image:'${AppConstants.mediaUrl}/profile/${roomBlackListData.user?.image}',
           width: 50.w,
           height: 50.w,
         ),

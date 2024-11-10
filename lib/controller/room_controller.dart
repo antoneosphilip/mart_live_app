@@ -24,6 +24,7 @@ import '../data/model/response/gift_model.dart';
 import '../data/model/response/response_model.dart';
 import '../data/model/response/room_model.dart';
 import '../data/model/response/room_types_model.dart';
+import '../data/model/response/show_room_model.dart';
 import '../data/model/response/user_model.dart';
 import '../helper/network_info.dart';
 import '../helper/route_helper.dart';
@@ -45,6 +46,8 @@ class RoomController extends GetxController implements GetxService {
 
   UserController userController = Get.find();
   RoomModel? inRoom;
+  ShowRoomModel? showRoomModel;
+
   UserModel? user;
   List<RoomModel> inHomeRoomList = [];
   List<RoomModel> roomList = [];
@@ -392,7 +395,9 @@ class RoomController extends GetxController implements GetxService {
     isLoading = true;
     Response response = await roomRepo.showRoom(id: id);
     if (response.statusCode == 200) {
-      getBackGroundList = GetBackGroundModel.fromJson(response.body);
+      showRoomModel = ShowRoomModel.fromJson(response.body);
+      print(showRoomModel?.showRoomData?.id);
+      print("sucessssssflyyyyyy");
     } else {
       print("erorrrrrrrrrrrrrr");
       print(response.body);

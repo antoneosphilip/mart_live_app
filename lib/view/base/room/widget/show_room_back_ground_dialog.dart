@@ -10,7 +10,7 @@ import '../../../../util/styles.dart';
 import '../../../screens/create_family/widget/elvated_button.dart';
 import '../../../widgets/loading_idicator.dart';
 
-void showBackGroundRoom(BuildContext context, RoomController roomController) {
+void showBackGroundRoom(BuildContext context) {
   showGeneralDialog(
     context: context,
     barrierDismissible: true,
@@ -19,7 +19,7 @@ void showBackGroundRoom(BuildContext context, RoomController roomController) {
     transitionDuration: const Duration(milliseconds: 500),
     pageBuilder: (context, animation1, animation2) {
       return GetBuilder<RoomController>(
-        builder: (GetxController controller) {
+        builder: (RoomController roomController) {
           return Align(
               alignment: Alignment.topCenter,
               child: Container(

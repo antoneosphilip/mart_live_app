@@ -97,7 +97,7 @@ class _RoomRowIconsState extends State<RoomRowIcons> {
         SizedBox(
           width: 10.w,
         ),
-        const GiftBoxAgora(),
+         GiftBoxAgora(roomId: widget.room.id!),
       ],
     );
   }
