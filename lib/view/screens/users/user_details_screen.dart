@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:live_app/controller/user_controller.dart';
 import 'package:live_app/data/model/response/conversation_model.dart';
 import 'package:live_app/data/model/response/user_model.dart';
+import 'package:live_app/util/dimensions.dart';
+import 'package:live_app/util/styles.dart';
 import 'package:live_app/view/widgets/loading_idicator.dart';
 import 'package:live_app/view/widgets/section_container.dart';
 
@@ -36,6 +38,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
             return userController.isLoading
                 ? const LoadingIndicator()
                 : Stack(
+
                     children: [
                       Container(
                         height: MediaQuery.of(context).size.height * 0.3,
@@ -51,7 +54,6 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                         width: MediaQuery.of(context).size.width,
                         color: Colors.black38,
                       ),
-
                       Container(
                         height: MediaQuery.of(context).size.height,
                         child: SingleChildScrollView(
@@ -205,7 +207,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                                                                   .tr)));
                                                 });
                                               },
-                                              child: Icon(
+                                              child: const Icon(
                                                 Icons.copy,
                                                 size: 15,
                                                 color: Colors.white,
@@ -249,6 +251,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
+                                          SizedBox(height: 25.h,),
                                           userController.userDetailsModel?.id ==
                                                   userController.userModel?.id
                                               ? SizedBox()
@@ -309,6 +312,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                                                     ],
                                                   ),
                                                 ),
+
                                           Container(
                                             child: Row(
                                               children: [
@@ -342,6 +346,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                                               ],
                                             ),
                                           ),
+                                          SizedBox(height: 10.h,),
                                           Container(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 5),
@@ -542,6 +547,25 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                           ),
                         ),
                       ),
+                      Padding(
+                        padding:  EdgeInsets.only(top: 193.h),
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            width: 100.w,
+                            height: 40.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24.r),
+                                color: Colors.red,
+                              image: const DecorationImage(image: AssetImage('assets/images/details_back_ground.webp'),fit: BoxFit.cover)
+                            ),
+                            child: Center(
+                              child: Text("Details",style: robotoWhiteMedium.copyWith(fontSize: Dimensions.fontSizeLarge,fontWeight: FontWeight.bold),),
+                            ),
+                          ),
+                        ),
+                      ),
+
                       userController.userDetailsModel?.id ==
                               userController.userModel?.id
                           ? SizedBox()
