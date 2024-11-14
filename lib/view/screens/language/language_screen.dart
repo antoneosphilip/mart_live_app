@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:live_app/controller/localization_controller.dart';
 import 'package:live_app/helper/responsive_helper.dart';
 import 'package:live_app/util/app_constants.dart';
+import 'package:live_app/util/colors.dart';
 import 'package:live_app/util/dimensions.dart';
 import 'package:live_app/util/images.dart';
 import 'package:live_app/util/styles.dart';
@@ -26,7 +27,7 @@ class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Color(0xFF0D47A1),
       appBar: (widget.fromMenu || ResponsiveHelper.isDesktop(context))
           ? CustomAppBar(title: 'language'.tr, backButton: true)
           : null,
@@ -53,7 +54,7 @@ class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
                           children: [
                             !ResponsiveHelper.isDesktop(context)
                                 ? Center(
-                                    child: Image.asset(Images.logo, width: 200))
+                                    child: Image.asset(Images.logo3, width: 200))
                                 : const SizedBox.shrink(),
                             // Center(child: Text(AppConstants.APP_NAME, style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeLarge))),
                             SizedBox(
@@ -65,7 +66,7 @@ class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: Dimensions.paddingSizeSmall),
                               child: Text('select_language'.tr,
-                                  style: robotoMedium),
+                                  style: robotoMedium.copyWith(color: Colors.white)),
                             ),
                             const SizedBox(height: Dimensions.paddingSizeLarge),
 

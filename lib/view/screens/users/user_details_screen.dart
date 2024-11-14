@@ -38,7 +38,6 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
             return userController.isLoading
                 ? const LoadingIndicator()
                 : Stack(
-
                     children: [
                       Container(
                         height: MediaQuery.of(context).size.height * 0.3,
@@ -218,350 +217,358 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(15),
-                                    topLeft: Radius.circular(15),
-                                  ),
-                                ),
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.2,
+                              Stack(
+                                children: [
+                                  Padding(
+                                    padding:  EdgeInsets.only(top: 20.h),
+                                    child: Container(
                                       decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            matchTextDirection: true,
-                                            image: AssetImage(
-                                                'assets/images/detail_bg.png'),
-                                            fit: BoxFit.fill),
+                                        color: Colors.white,
                                         borderRadius: BorderRadius.only(
                                           topRight: Radius.circular(15),
                                           topLeft: Radius.circular(15),
                                         ),
                                       ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.only(
-                                          right: 10, left: 10, top: 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      child: Stack(
                                         children: [
-                                          SizedBox(height: 25.h,),
-                                          userController.userDetailsModel?.id ==
-                                                  userController.userModel?.id
-                                              ? SizedBox()
-                                              : Container(
-                                                  padding: EdgeInsets.only(
-                                                      top: 10, bottom: 20),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      CustomBgBtn(
-                                                          text: userController
-                                                                      .userDetailsModel
-                                                                      ?.isFollowed ==
-                                                                  true
-                                                              ? 'unfollow'.tr
-                                                              : 'follow'.tr,
-                                                          img:
-                                                              'assets/images/btn.webp',
-                                                          onTab: () async {
-                                                            Map<String, dynamic>
-                                                                data = {};
-                                                            if (userController
-                                                                    .userDetailsModel
-                                                                    ?.isFollowed ==
-                                                                true) {
-                                                              data = await userController
-                                                                  .unfollow(
-                                                                      userController
-                                                                          .userDetailsModel!
-                                                                          .id!);
-                                                            } else {
-                                                              data = await userController.follow(
-                                                                  userController
-                                                                      .userDetailsModel!
-                                                                      .id!);
-                                                            }
-                                                            userController
-                                                                .setUserDetailsModel(
-                                                                    'isFollowed',
-                                                                    data[
-                                                                        'isFollowed']);
-                                                            userController
-                                                                .getUserData();
-                                                          }),
-                                                      CustomBgBtn(
-                                                          text: userController
-                                                                      .userDetailsModel
-                                                                      ?.isFriend ==
-                                                                  true
-                                                              ? 'remove_friend'
-                                                                  .tr
-                                                              : 'add_friend'.tr,
-                                                          img:
-                                                              'assets/images/btn.webp',
-                                                          onTab: () {}),
-                                                    ],
-                                                  ),
-                                                ),
-
                                           Container(
-                                            child: Row(
-                                              children: [
-                                                Image.asset(
-                                                  userController
-                                                              .userDetailsModel
-                                                              ?.gender ==
-                                                          'male'
-                                                      ? 'assets/images/male.webp'
-                                                      : 'assets/images/female.webp',
-                                                  width: 15,
-                                                  height: 15,
-                                                  fit: BoxFit.fill,
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                CustomImage(
-                                                  image:
-                                                      "${AppConstants.baseUrl}/${userController.userDetailsModel?.consigneeLevel?.currentImage}",
-                                                  width: 50,
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                CustomImage(
-                                                  image:
-                                                      "${AppConstants.baseUrl}/${userController.userDetailsModel?.senderLevel?.currentImage}",
-                                                  width: 50,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(height: 10.h,),
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 5),
-                                            child: Text(
-                                                "${userController.userDetailsModel?.pio}"),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            height: 80,
+                                            height:
+                                                MediaQuery.of(context).size.height *
+                                                    0.2,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
                                                   matchTextDirection: true,
                                                   image: AssetImage(
-                                                      'assets/images/counts_bg.webp'),
+                                                      'assets/images/detail_bg.png'),
                                                   fit: BoxFit.fill),
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
+                                              borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(15),
+                                                topLeft: Radius.circular(15),
+                                              ),
                                             ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.only(
+                                                right: 10, left: 10, top: 10),
+                                            child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "${userController.userDetailsModel?.wealth}",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 25),
-                                                    ),
-                                                    Text(
-                                                      'Wealth'.tr,
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    )
-                                                  ],
-                                                ),
+                                                SizedBox(height: 25.h,),
+                                                userController.userDetailsModel?.id ==
+                                                        userController.userModel?.id
+                                                    ? SizedBox()
+                                                    : Container(
+                                                        padding: EdgeInsets.only(
+                                                            top: 10, bottom: 20),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            CustomBgBtn(
+                                                                text: userController
+                                                                            .userDetailsModel
+                                                                            ?.isFollowed ==
+                                                                        true
+                                                                    ? 'unfollow'.tr
+                                                                    : 'follow'.tr,
+                                                                img:
+                                                                    'assets/images/btn.webp',
+                                                                onTab: () async {
+                                                                  Map<String, dynamic>
+                                                                      data = {};
+                                                                  if (userController
+                                                                          .userDetailsModel
+                                                                          ?.isFollowed ==
+                                                                      true) {
+                                                                    data = await userController
+                                                                        .unfollow(
+                                                                            userController
+                                                                                .userDetailsModel!
+                                                                                .id!);
+                                                                  } else {
+                                                                    data = await userController.follow(
+                                                                        userController
+                                                                            .userDetailsModel!
+                                                                            .id!);
+                                                                  }
+                                                                  userController
+                                                                      .setUserDetailsModel(
+                                                                          'isFollowed',
+                                                                          data[
+                                                                              'isFollowed']);
+                                                                  userController
+                                                                      .getUserData();
+                                                                }),
+                                                            CustomBgBtn(
+                                                                text: userController
+                                                                            .userDetailsModel
+                                                                            ?.isFriend ==
+                                                                        true
+                                                                    ? 'remove_friend'
+                                                                        .tr
+                                                                    : 'add_friend'.tr,
+                                                                img:
+                                                                    'assets/images/btn.webp',
+                                                                onTab: () {}),
+                                                          ],
+                                                        ),
+                                                      ),
+                                    
                                                 Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 10),
-                                                  child: Image(
-                                                    width: 3,
-                                                    image: AssetImage(
-                                                        'assets/images/v_line.png'),
+                                                  child: Row(
+                                                    children: [
+                                                      Image.asset(
+                                                        userController
+                                                                    .userDetailsModel
+                                                                    ?.gender ==
+                                                                'male'
+                                                            ? 'assets/images/male.webp'
+                                                            : 'assets/images/female.webp',
+                                                        width: 15,
+                                                        height: 15,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      CustomImage(
+                                                        image:
+                                                            "${AppConstants.baseUrl}/${userController.userDetailsModel?.consigneeLevel?.currentImage}",
+                                                        width: 50,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      CustomImage(
+                                                        image:
+                                                            "${AppConstants.baseUrl}/${userController.userDetailsModel?.senderLevel?.currentImage}",
+                                                        width: 50,
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "${userController.userDetailsModel?.charm}",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 25),
-                                                    ),
-                                                    Text(
-                                                      'Charm'.tr,
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    )
-                                                  ],
-                                                ),
+                                                SizedBox(height: 10.h,),
                                                 Container(
                                                   padding: EdgeInsets.symmetric(
-                                                      vertical: 10),
-                                                  child: Image(
-                                                    width: 3,
-                                                    image: AssetImage(
-                                                        'assets/images/v_line.png'),
-                                                  ),
+                                                      vertical: 5),
+                                                  child: Text(
+                                                      "${userController.userDetailsModel?.pio}"),
                                                 ),
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "${userController.userDetailsModel?.followersCount}",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 25),
-                                                    ),
-                                                    Text(
-                                                      'followers'.tr,
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    )
-                                                  ],
+                                                SizedBox(
+                                                  height: 10,
                                                 ),
                                                 Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 10),
-                                                  child: Image(
-                                                    width: 3,
-                                                    image: AssetImage(
-                                                        'assets/images/v_line.png'),
+                                                  height: 80,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                        matchTextDirection: true,
+                                                        image: AssetImage(
+                                                            'assets/images/counts_bg.webp'),
+                                                        fit: BoxFit.fill),
+                                                    borderRadius:
+                                                        BorderRadius.circular(15),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.spaceEvenly,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                    children: [
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment.center,
+                                                        children: [
+                                                          Text(
+                                                            "${userController.userDetailsModel?.wealth}",
+                                                            style: TextStyle(
+                                                                color: Colors.white,
+                                                                fontSize: 25),
+                                                          ),
+                                                          Text(
+                                                            'Wealth'.tr,
+                                                            style: TextStyle(
+                                                                color: Colors.white),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                        padding: EdgeInsets.symmetric(
+                                                            vertical: 10),
+                                                        child: Image(
+                                                          width: 3,
+                                                          image: AssetImage(
+                                                              'assets/images/v_line.png'),
+                                                        ),
+                                                      ),
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment.center,
+                                                        children: [
+                                                          Text(
+                                                            "${userController.userDetailsModel?.charm}",
+                                                            style: TextStyle(
+                                                                color: Colors.white,
+                                                                fontSize: 25),
+                                                          ),
+                                                          Text(
+                                                            'Charm'.tr,
+                                                            style: TextStyle(
+                                                                color: Colors.white),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                        padding: EdgeInsets.symmetric(
+                                                            vertical: 10),
+                                                        child: Image(
+                                                          width: 3,
+                                                          image: AssetImage(
+                                                              'assets/images/v_line.png'),
+                                                        ),
+                                                      ),
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment.center,
+                                                        children: [
+                                                          Text(
+                                                            "${userController.userDetailsModel?.followersCount}",
+                                                            style: TextStyle(
+                                                                color: Colors.white,
+                                                                fontSize: 25),
+                                                          ),
+                                                          Text(
+                                                            'followers'.tr,
+                                                            style: TextStyle(
+                                                                color: Colors.white),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                        padding: EdgeInsets.symmetric(
+                                                            vertical: 10),
+                                                        child: Image(
+                                                          width: 3,
+                                                          image: AssetImage(
+                                                              'assets/images/v_line.png'),
+                                                        ),
+                                                      ),
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment.center,
+                                                        children: [
+                                                          Text(
+                                                            "${userController.userDetailsModel?.visitorsCount}",
+                                                            style: TextStyle(
+                                                                color: Colors.white,
+                                                                fontSize: 25),
+                                                          ),
+                                                          Text(
+                                                            'visitors'.tr,
+                                                            style: TextStyle(
+                                                                color: Colors.white),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "${userController.userDetailsModel?.visitorsCount}",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 25),
-                                                    ),
-                                                    Text(
-                                                      'visitors'.tr,
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    )
-                                                  ],
+                                                SizedBox(
+                                                  height: 10,
                                                 ),
+                                                SectionContainer(
+                                                  icon: 'assets/images/cup.png',
+                                                  title: 'top_supporters'.tr,
+                                                  color: Colors.orangeAccent
+                                                      .withOpacity(0.1),
+                                                  padding: EdgeInsets.only(top: 15),
+                                                  body: TopThree(
+                                                    users: userController
+                                                        .userDetailsModel
+                                                        ?.topSupporters,
+                                                  ),
+                                                ),
+                                                SectionContainer(
+                                                  icon: 'assets/images/medal.png',
+                                                  title: 'medals'.tr,
+                                                  color:
+                                                      Colors.yellow.withOpacity(0.1),
+                                                  padding: EdgeInsets.only(top: 15),
+                                                ),
+                                                SectionContainer(
+                                                  icon: 'assets/images/car.png',
+                                                  title: 'entrance_effect'.tr,
+                                                  color: Colors.blueAccent
+                                                      .withOpacity(0.1),
+                                                  padding: EdgeInsets.only(top: 15),
+                                                ),
+                                                SectionContainer(
+                                                    icon:
+                                                        'assets/images/gift_fill.png',
+                                                    title: 'gift_wall'.tr,
+                                                    color:
+                                                        Colors.pink.withOpacity(0.1),
+                                                    padding: EdgeInsets.all(15),
+                                                    body: Wrap(
+                                                      children: [
+                                                        ...?userController
+                                                            .userDetailsModel
+                                                            ?.receivedGifts
+                                                            ?.map((e) => Container(
+                                                                  padding:
+                                                                      EdgeInsets.all(
+                                                                          10),
+                                                                  child: Column(
+                                                                    children: [
+                                                                      CustomImage(
+                                                                        width: 50,
+                                                                        height: 50,
+                                                                        image:
+                                                                            "${AppConstants.mediaUrl}/gift/${e.thumbnail}",
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height: 5,
+                                                                      ),
+                                                                      Text(
+                                                                          "x ${e.totalQty}")
+                                                                    ],
+                                                                  ),
+                                                                ))
+                                                      ],
+                                                    )),
+                                                SizedBox(
+                                                  height: 100,
+                                                )
                                               ],
                                             ),
                                           ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          SectionContainer(
-                                            icon: 'assets/images/cup.png',
-                                            title: 'top_supporters'.tr,
-                                            color: Colors.orangeAccent
-                                                .withOpacity(0.1),
-                                            padding: EdgeInsets.only(top: 15),
-                                            body: TopThree(
-                                              users: userController
-                                                  .userDetailsModel
-                                                  ?.topSupporters,
-                                            ),
-                                          ),
-                                          SectionContainer(
-                                            icon: 'assets/images/medal.png',
-                                            title: 'medals'.tr,
-                                            color:
-                                                Colors.yellow.withOpacity(0.1),
-                                            padding: EdgeInsets.only(top: 15),
-                                          ),
-                                          SectionContainer(
-                                            icon: 'assets/images/car.png',
-                                            title: 'entrance_effect'.tr,
-                                            color: Colors.blueAccent
-                                                .withOpacity(0.1),
-                                            padding: EdgeInsets.only(top: 15),
-                                          ),
-                                          SectionContainer(
-                                              icon:
-                                                  'assets/images/gift_fill.png',
-                                              title: 'gift_wall'.tr,
-                                              color:
-                                                  Colors.pink.withOpacity(0.1),
-                                              padding: EdgeInsets.all(15),
-                                              body: Wrap(
-                                                children: [
-                                                  ...?userController
-                                                      .userDetailsModel
-                                                      ?.receivedGifts
-                                                      ?.map((e) => Container(
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    10),
-                                                            child: Column(
-                                                              children: [
-                                                                CustomImage(
-                                                                  width: 50,
-                                                                  height: 50,
-                                                                  image:
-                                                                      "${AppConstants.mediaUrl}/gift/${e.thumbnail}",
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 5,
-                                                                ),
-                                                                Text(
-                                                                    "x ${e.totalQty}")
-                                                              ],
-                                                            ),
-                                                          ))
-                                                ],
-                                              )),
-                                          SizedBox(
-                                            height: 100,
-                                          )
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Padding(
+                                    padding:  EdgeInsets.only(bottom: 40.h),
+                                    child: Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Container(
+                                        width: 100.w,
+                                        height: 40.h,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(24.r),
+                                            color: Colors.red,
+                                            image: const DecorationImage(image: AssetImage('assets/images/details_back_ground.webp'),fit: BoxFit.cover)
+                                        ),
+                                        child: Center(
+                                          child: Text("Details",style: robotoWhiteMedium.copyWith(fontSize: Dimensions.fontSizeLarge,fontWeight: FontWeight.bold),),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
                               )
                             ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding:  EdgeInsets.only(top: 193.h),
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            width: 100.w,
-                            height: 40.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24.r),
-                                color: Colors.red,
-                              image: const DecorationImage(image: AssetImage('assets/images/details_back_ground.webp'),fit: BoxFit.cover)
-                            ),
-                            child: Center(
-                              child: Text("Details",style: robotoWhiteMedium.copyWith(fontSize: Dimensions.fontSizeLarge,fontWeight: FontWeight.bold),),
-                            ),
                           ),
                         ),
                       ),
