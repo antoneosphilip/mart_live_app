@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:live_app/view/base/custom_image.dart';
 import 'package:zego_uikit_prebuilt_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
@@ -31,6 +32,7 @@ class ZegoHelper {
       ZegoLiveAudioRoomLayoutRowConfig(
         count: 4,
         alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround,
+
       ),
     ];
   }
@@ -126,15 +128,15 @@ class ZegoHelper {
         Positioned(
           top: 10,
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
               children: [
                 Text(
                   "$roomName",
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: Color(0xfff6f1f1),
-                    fontSize: 15,
+                    color: const Color(0xfff6f1f1),
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -172,7 +174,7 @@ class ZegoHelper {
       child: Container(
         width: size.width,
         height: size.height,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/image/test_frame.webp')),
         ),
@@ -189,26 +191,64 @@ class ZegoHelper {
     );
   }
 
+
+
   static Widget foregroundBuilder(
-      BuildContext context, Size size, ZegoUIKitUser? user, Map extraInfo) {
+      BuildContext context, Size size, ZegoUIKitUser? user, Map extraInfo){
     var userName = user?.name.isEmpty ?? true
-        ? Container()
-        : Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Text(
-              user?.name ?? "unknown".tr,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  backgroundColor: Colors.black.withOpacity(0.1),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  decoration: TextDecoration.none,
-                  color: Colors.amber),
-            ),
-          );
+        ? Padding(
+      padding:EdgeInsets.only(right: 4.w,bottom: 11.h),
+      child: Center(
+          child:Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              SizedBox(
+                width: 55.w,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding:  EdgeInsets.only(top: 5.h),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          const Image(
+                            image: AssetImage('assets/image/chair.webp'),
+                            fit: BoxFit
+                                .cover, // Ensure the image covers the circle
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 5), // Reduced padding
+                            child: Text(
+                              (0).toString(),
+                              style: const TextStyle(
+                                  color: Colors.yellowAccent,
+                                  fontSize: 12), // Reduced font size
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )
+      ),
+    )
+        : Padding(
+          padding:  EdgeInsets.only(top: 65.h),
+          child: Text(
+            user?.name ?? "unknown".tr,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                decoration: TextDecoration.none,
+                color: Colors.white),
+          ),
+        );
 
     if (!isAttributeHost(user?.inRoomAttributes)) {
       return userName;

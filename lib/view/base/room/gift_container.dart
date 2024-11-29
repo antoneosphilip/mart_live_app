@@ -7,8 +7,12 @@ import 'package:live_app/view/screens/wallet/wallet_screen.dart';
 
 import '../../../controller/room_controller.dart';
 import '../../../controller/user_controller.dart';
+import '../../../data/model/response/gift_model.dart';
 import '../../../util/app_constants.dart';
 import '../../screens/home/widget/filter_view.dart';
+import '../../screens/room/gift/gift_manager/defines.dart';
+import '../../screens/room/gift/gift_manager/gift_data.dart';
+import '../../screens/room/gift/gift_manager/gift_manager.dart';
 
 class GiftContainer extends StatefulWidget {
    GiftContainer({super.key});
@@ -20,6 +24,9 @@ class GiftContainer extends StatefulWidget {
 }
 
 class _GiftContainerState extends State<GiftContainer> {
+  final selectedGiftItemNotifier = ValueNotifier<ZegoGiftItem?>(null);
+  final countNotifier = ValueNotifier<String>('1');
+
 
   @override
   void initState() {
@@ -230,6 +237,10 @@ class _GiftContainerState extends State<GiftContainer> {
                             children: [
                               InkWell(
                                 onTap: () {
+                                  selectedGiftItemNotifier.value=giftItemList[4];
+                                  print("itemmmm${selectedGiftItemNotifier.value!.name}");
+
+                                  // selectedGiftItemNotifier.value=giftController.gift_list[index];
                                   giftController.selectGift(
                                       giftController.gift_list[index].id);
                                 },
@@ -331,7 +342,13 @@ class _GiftContainerState extends State<GiftContainer> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Get.find<GiftController>().sendGift();
+
+                                  /// local play
+                                  ZegoGiftManager().playList.add(PlayData(giftItem: selectedGiftItemNotifier.value!, count: 1));
+
+                                  /// notify remote host
+                                  ZegoGiftManager().service.sendGift(name: selectedGiftItemNotifier.value!.name, count: 1);
+                                  // Get.find<GiftController>().sendGift(selectedGiftItemNotifier: selectedGiftItemNotifier, countNotifier: countNotifier);
                                   Navigator.pop(context);
                                 },
                                 child: Container(

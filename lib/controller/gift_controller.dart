@@ -7,9 +7,10 @@ import 'package:live_app/controller/user_controller.dart';
 import 'package:live_app/data/model/response/gift_model.dart';
 import 'package:live_app/data/model/response/gift_type.dart';
 import 'package:live_app/data/repository/gift_repo.dart';
-
 import '../data/api/api_checker.dart';
 import '../view/base/custom_snackbar.dart';
+import '../view/screens/room/gift/gift_manager/defines.dart';
+import '../view/screens/room/gift/gift_manager/gift_manager.dart';
 
 class GiftController extends GetxController implements GetxService {
   final GiftRepo giftRepo;
@@ -74,7 +75,7 @@ class GiftController extends GetxController implements GetxService {
     update();
   }
 
-  Future<void> sendGift() async {
+  Future<void> sendGift({required ValueNotifier<ZegoGiftItem?> selectedGiftItemNotifier,required ValueNotifier<String> countNotifier }) async {
     if (selectedGiftId == 0) {
       Get.defaultDialog(title: 'error', content: Text('please select gift'.tr));
       return;
@@ -87,6 +88,14 @@ class GiftController extends GetxController implements GetxService {
     Response response =
         await giftRepo.sendGift(selectedUserIds, selectedGiftId, qty);
     if (response.statusCode == 200) {
+      final giftItem = selectedGiftItemNotifier.value!;
+      final giftCount = int.tryParse(countNotifier.value) ?? 1;
+
+      /// local play
+      ZegoGiftManager().playList.add(PlayData(giftItem: giftItem, count: giftCount));
+
+      /// notify remote host
+      ZegoGiftManager().service.sendGift(name: giftItem.name, count: giftCount);
     } else {
       ApiChecker.checkApi(response);
     }

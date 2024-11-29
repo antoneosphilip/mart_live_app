@@ -325,7 +325,7 @@ class _GiftContainerAgoraState extends State<GiftContainerAgora> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Get.find<GiftController>().sendGift();
+                                  // Get.find<GiftController>().sendGift(selectedGiftItemNotifier: null, countNotifier: null);
                                   Navigator.pop(context);
                                 },
                                 child: Container(

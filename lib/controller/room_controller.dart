@@ -91,7 +91,7 @@ class RoomController extends GetxController implements GetxService {
         user: ZegoUIKitUser(id: '123', name: 'mmm'),
         message: message,
         timestamp: 00021154,
-        messageID: 1));
+        messageID: 1.toString()));
   }
 
   Future<void> getTopThree() async {
