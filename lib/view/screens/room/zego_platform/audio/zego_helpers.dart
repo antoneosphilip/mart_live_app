@@ -236,17 +236,19 @@ class ZegoHelper {
           )
       ),
     )
-        : Padding(
-          padding:  EdgeInsets.only(top: 65.h),
-          child: Text(
-            user?.name ?? "unknown".tr,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                decoration: TextDecoration.none,
-                color: Colors.white),
+        : Center(
+          child: Padding(
+            padding:  EdgeInsets.only(top: 65.h),
+            child: Text(
+              user?.name ?? "unknown".tr,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  decoration: TextDecoration.none,
+                  color: Colors.white),
+            ),
           ),
         );
 

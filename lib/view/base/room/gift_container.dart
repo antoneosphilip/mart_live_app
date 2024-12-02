@@ -30,6 +30,7 @@ class _GiftContainerState extends State<GiftContainer> {
 
   @override
   void initState() {
+    selectedGiftItemNotifier.value=giftItemList[2];
     widget.scrollController.addListener(() {
       if (widget.scrollController.position.pixels ==
           widget.scrollController.position.maxScrollExtent &&
@@ -237,7 +238,7 @@ class _GiftContainerState extends State<GiftContainer> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  selectedGiftItemNotifier.value=giftItemList[4];
+                                  selectedGiftItemNotifier.value=giftItemList[2];
                                   print("itemmmm${selectedGiftItemNotifier.value!.name}");
 
                                   // selectedGiftItemNotifier.value=giftController.gift_list[index];

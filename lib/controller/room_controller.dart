@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
-
-import 'package:agora_chat_sdk/agora_chat_sdk.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -253,6 +251,7 @@ class RoomController extends GetxController implements GetxService {
         (Map<String, dynamic> event) {
       print('UserJoinedRoom');
     });
+
     Get.find<EchoService>().listenPublic('room.${room.id}', 'UserSendGift',
         (Map<String, dynamic> event) {
       sentGift = GiftModel(image: event['gift']['image']);
@@ -454,9 +453,9 @@ class RoomController extends GetxController implements GetxService {
   RtcEngine? agoraEngine;
 
   // Ag? agoraRtm;
-  ChatClient? chatClient;
-
-  List<ChatMessage> messages = [];
+  // ChatClient? chatClient;
+  //
+  // List<ChatMessage> messages = [];
 
   Future<void> joinRoomAgora(RoomModel room, UserModel userModel) async {
     if (room.isOwner == true) {
